@@ -107,7 +107,7 @@ today = datetime.date.today()
 year = today.year
 if today.month < 5:
     year -= 1
-for year in range(1950,year):
-    fetch_era5_sl_monthly_data(year)
-for year in range(1980,year):
-    fetch_era5_sl_hourly_data(year)
+for y in range(1950,year):
+    fetch_era5_sl_monthly_data(y)
+for y in range(1980,year):
+    fetch_era5_sl_hourly_data(y)

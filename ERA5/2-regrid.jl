@@ -10,6 +10,8 @@ dt_today = today();
 dt_year = year(dt_today);
 dt_month = month(dt_today);
 if dt_month < 5
+    dt_year -= 2
+else
     dt_year -= 1
 end;
 for year in 1980:dt_year
