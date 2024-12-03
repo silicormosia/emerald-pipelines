@@ -2,7 +2,9 @@
 # This script is meant to regrid the ERA5 data to the same grid as the global simulation (1X for now)
 #
 using Dates: month, today, year
-using Emerald.EmeraldData.WeatherDrivers: ERA5_FOLDER_MONTHLY, regrid_ERA5!
+using Emerald.EmeraldData.WeatherDrivers: regrid_ERA5!
+
+using Emerald.EmeraldIO.Folders: ERA5_SL_MONTHLY
 
 
 # 1. regrid all the hourly data required by CliMA Land PRO and Emerald (ERA5 data has a 2-3 months delay)
@@ -33,5 +35,5 @@ ERA5_SL_MONTHLY_SELECTION = [
             "type_of_low_vegetation"];
 ERA5_SL_MONTHLY_VARNAMES = [ "t2m", "cvh", "lai_hv", "lai_lv", "cvl", "mcpr", "mlspr", "skt", "tvh", "tvl"];
 for year in 1950:dt_year
-    regrid_ERA5!.(year, 2, ERA5_SL_MONTHLY_SELECTION, ERA5_SL_MONTHLY_VARNAMES; folder = ERA5_FOLDER_MONTHLY);
+    regrid_ERA5!.(year, 2, ERA5_SL_MONTHLY_SELECTION, ERA5_SL_MONTHLY_VARNAMES; folder = ERA5_SL_MONTHLY);
 end;
