@@ -102,12 +102,43 @@ def fetch_era5_sl_monthly_data(year, datasets=ERA5_SL_MONTHLY_SELECTION, folder=
             print("File", file_name, "already exists, skip downloading")
 
 
-# 3. download all the data required by CliMA Land PRO (ERA5 data has a 2-3 months delay)
-today = datetime.date.today()
-year = today.year
-if today.month < 5:
-    year -= 1
-for y in range(1950,year):
-    fetch_era5_sl_monthly_data(y)
-for y in range(1980,year):
-    fetch_era5_sl_hourly_data(y)
+# 3. ask whether the user wants to download all the data or just the data for a specific year
+print("\nDo you want to download all the data from 1950 to last year (Y/y for yes; otherwise you will be asked to input a specific year): ")
+input_choice = input()
+download_all = input_choice == "Y" or input_choice == "y" or input_choice == "yes" or input_choice == "YES" or input_choice == "Yes"
+
+
+# 4. download all the data required by CliMA Land PRO (ERA5 data has a 2-3 months delay)
+if download_all:
+    today = datetime.date.today()
+    year = today.year
+    if today.month <= 3:
+        year -= 1
+    for y in range(1950,year):
+        fetch_era5_sl_monthly_data(y)
+    for y in range(1980,year):
+        fetch_era5_sl_hourly_data(y)
+
+
+# 5. ask the user to input the year (integer)
+while ~download_all:
+    try:
+        # ask the user to input the year
+        input_year_str = input("\nPlease input the year you want to download the data for (integer): ")
+        input_year = int(input_year_str)
+        # check if the input is valid
+        today = datetime.date.today()
+        current_year = today.year
+        if input_year < 1950 or input_year >= current_year:
+            print("Please input a year between 1950 and", current_year-1)
+        elif input_year == current_year-1 and today.month <= 3:
+            print("The data for the current year is not available yet (assuming 3 months delay)")
+            break
+        else:
+            print("Downloading data for year", input_year)
+            fetch_era5_sl_monthly_data(input_year)
+            fetch_era5_sl_hourly_data(input_year)
+            break
+    except ValueError:
+        print("Please input an integer")
+        continue
