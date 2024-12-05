@@ -162,7 +162,7 @@ version = "1.6.0"
 
 [[deps.Emerald]]
 deps = ["BenchmarkTools", "CSV", "DataFrames", "Dates", "Distributed", "DocStringExtensions", "FileIO", "GLM", "GriddingMachine", "JLD2", "JSON", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "Pkg", "ProgressMeter", "QuadGK", "Revise", "SpecialFunctions", "Statistics", "StatsBase", "Test"]
-git-tree-sha1 = "fd273fd290e89529cceb0d86a067735516d99536"
+git-tree-sha1 = "04b531ba21e21c8e0e69876515b76cfb628f1468"
 repo-rev = "wyujie"
 repo-url = "https://github.com/Yujie-W/Emerald.git"
 uuid = "56ca4449-d59c-41e3-9ae8-0f89b45aadb6"
