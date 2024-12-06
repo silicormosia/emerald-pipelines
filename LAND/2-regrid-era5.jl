@@ -5,9 +5,11 @@ using Dates: month, today, year
 using Emerald.EmeraldData.WeatherDrivers: ERA5SingleLevelsDriver, regrid_ERA5!
 using Emerald.EmeraldIO.Folders: ERA5_SL_MONTHLY
 
-using Distributed: pmap
+# 0. set up the parallel computing
+using Distributed: pmap, @everywhere
 using Emerald.EmeraldUtility.Threading: dynamic_workers!
 dynamic_workers!(23);
+@everywhere using Emerald.EmeraldData.WeatherDrivers: regrid_ERA5!
 
 
 # 1. regrid all the hourly data required by CliMA Land PRO and Emerald (ERA5 data has a 2-3 months delay)
@@ -29,7 +31,7 @@ for year in 1980:dt_year
     for i in eachindex(era5_labs)
         push!(params, (era5_labs[i], era5_vars[i]));
     end;
-    thread_func(x) = regrid_ERA5!(year, 1, x[1], x[2]);
+    @everywhere thread_func(x) = regrid_ERA5!(year, 1, x[1], x[2]);
     pmap(thread_func, params);
     dynamic_workers!(0);
 end;
