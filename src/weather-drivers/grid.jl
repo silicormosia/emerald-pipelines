@@ -1,6 +1,11 @@
 """
 
+    prepare_weather_drivers!(year::Int, gmv::Int; nthreads::Int = 40)
 
+Prepare weather drivers for all grid cells, given
+- `year`: the year of simulation
+- `gmv`: the GriddingMachine version number
+- `nthreads`: number of threads to use (default: 40)
 
 """
 function prepare_weather_drivers!(year::Int, gmv::Int; nthreads::Int = 40)
