@@ -5,12 +5,12 @@ function emerald_land_config()
         "GM_VERSION"        => "gm2",
         "WD_VERSION"        => "wd1",
 
-        # saving settings
-        "VARIABLES_TO_SAVE" => String["GPP", "ET", "SIF740"],
-
         # threading settings
         "GRID_THREADS"      => 40,
         "SIMU_THREADS"      => 480,
         "REMOVE_WHEN_DONE"  => true,
+
+        # saving settings
+        "VARIABLES_TO_SAVE" => String["GPP", "ET", "SIF740"],
     );
 end;

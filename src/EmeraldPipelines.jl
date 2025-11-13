@@ -14,6 +14,7 @@ using Emerald.EmeraldLand.SPAC: initialize_spac!
 using Emerald.EmeraldUtility.Log: @terror, @tinfo, @twarn
 using Emerald.EmeraldUtility.Threading: dynamic_workers!
 using NetcdfIO: append_nc!, create_nc!, read_nc
+using Emerald.EmeraldMath.Data: resample_data
 
 # global constants
 EARLIEST_ERA5_YEAR = 1980;
@@ -32,6 +33,7 @@ include("weather-drivers/grid.jl");
 include("simulations/thread.jl");
 include("simulations/global.jl");
 include("simulations/combine.jl");
+include("simulations/resample.jl");
 
 
 # function to run the global simulations

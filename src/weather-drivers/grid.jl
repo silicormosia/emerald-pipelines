@@ -22,8 +22,8 @@ function prepare_weather_drivers!(year::Int, config::OrderedDict{String,Any})
     # run in parallel
     dynamic_workers!(config["GRID_THREADS"]);
     @everywhere eval(:(using EmeraldPipelines));
-    @inline thread_func(param) = era5_weather_driver_file(param...);
-    @showprogress pmap(thread_func, params);
+    @inline thread_func_wd(param) = era5_weather_driver_file(param...);
+    @showprogress pmap(thread_func_wd, params);
     @tinfo "All weather drivers prepared!";
 
     return nothing

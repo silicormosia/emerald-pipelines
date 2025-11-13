@@ -1,14 +1,15 @@
 """
 
-    thread_simulation!(gm_dict::Dict{String,Any})
+    thread_simulation!(config::OrderedDict{String,Any}, gm_dict::Dict{String,Any})
 
 Run the SPAC simulation for a specific grid cell in a separate thread, given
+- `config`: the configuration dictionary containing parameters for the simulation
 - `gm_dict`: a dictionary that contains the GriddingMachine information for the specific grid cell
 
 """
-thread_simulation!(gm_dict::Dict{String,Any}) = (
+thread_simulation!(config::OrderedDict{String,Any}, gm_dict::Dict{String,Any}) = (
     # locate where to store the cache file
-    cachefile = simulation_cache_file(gm_dict);
+    cachefile = simulation_cache_file(config, gm_dict);
 
     # if the cache file exists, skip the simulation
     if isfile(cachefile)

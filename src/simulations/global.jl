@@ -20,7 +20,8 @@ function global_simulations!(year::Int, config::OrderedDict{String,Any}) :: Noth
 
     # run the model in parallel
     @tinfo "Running simulations in parallel...";
-    results = @showprogress pmap(thread_simulation!, jld_dicts);
+    @inline thread_func_simu(param) = thread_simulation!(config, param);
+    results = @showprogress pmap(thread_func_simu, jld_dicts);
 
     # log the results
     if all(isnothing, results)
