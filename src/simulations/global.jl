@@ -8,7 +8,7 @@ Run the global SPAC simulations for all grid cells, given
 - `nthreads`: number of workers to use (default: 480)
 
 """
-function global_simulations!(year::Int, config::OrderedDict{String,Any})
+function global_simulations!(year::Int, config::OrderedDict{String,Any}) :: Nothing
     # dicts that contains all GriddingMachine data to help determine the locations to simulate
     jld2_to_read = jld2_dict_file(year, config["GM_VERSION"]);
     jld_dicts = read_jld2(jld2_to_read, "GRID_INFO");
@@ -33,4 +33,12 @@ function global_simulations!(year::Int, config::OrderedDict{String,Any})
             end;
         end;
     end;
+
+    # remove the workers after simulations
+    if config["REMOVE_WHEN_DONE"]
+        @tinfo "Removing all workers after simulations...";
+        dynamic_workers!(0);
+    end;
+
+    return nothing
 end;

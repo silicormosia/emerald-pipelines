@@ -1,22 +1,3 @@
-
-"""
-
-    jld2_dict_file(dts::LandDatasets, gm_tag::String)
-    jld2_dict_file(year::Int, gm_tag::String)
-
-Return the location of the JLD2 file that contains the gridded data from GriddingMachine to run Emerald, given
-- `dts`: the LandDatasets object containing the dataset information
-- `gm_tag`: the GriddingMachine version tag (e.g., "gm1", "gm2", "gm3")
-- `year`: the year of the dataset
-
-"""
-function jld2_dict_file end;
-
-jld2_dict_file(dts::LandDatasets, gm_tag::String) = jld2_dict_file(dts.LABELS.year, gm_tag);
-
-jld2_dict_file(year::Int, gm_tag::String) = "$(LAND_SETUP)/emerald_grid_info_$(gm_tag)_$(year).jld2";
-
-
 """
 
     prepare_grid_jld!(year::Int, config::OrderedDict{String,Any})

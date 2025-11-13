@@ -8,7 +8,7 @@ Run the SPAC simulation for a specific grid cell in a separate thread, given
 """
 thread_simulation!(gm_dict::Dict{String,Any}) = (
     # locate where to store the cache file
-    cachefile = "$(LAND_CACHE)/emerald_gm2_wd1_$(gm_dict["YEAR"])_$(gm_dict["LAT_INDEX"])_$(gm_dict["LON_INDEX"])_$(gm_dict["RESO_SPACE"])X.nc";
+    cachefile = simulation_cache_file(gm_dict);
 
     # if the cache file exists, skip the simulation
     if isfile(cachefile)
