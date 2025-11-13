@@ -5,8 +5,6 @@
 using Dates: month, today, year
 using Emerald.EmeraldData.WeatherDrivers: regrid_ERA5!
 
-using Emerald.EmeraldIO.Folders: ERA5_SL_MONTHLY
-
 
 # 1. regrid all the hourly data required by CliMA Land PRO and Emerald (ERA5 data has a 2-3 months delay)
 dt_today = today();
@@ -19,22 +17,4 @@ else
 end;
 for year in 1980:dt_year
     regrid_ERA5!(year, 1);
-end;
-
-
-# 2. regrid all the monthly data to use for other purposes
-ERA5_SL_MONTHLY_SELECTION = [
-            "2m_temperature",
-            "high_vegetation_cover",
-            "leaf_area_index_high_vegetation",
-            "leaf_area_index_low_vegetation",
-            "low_vegetation_cover",
-            "mean_convective_precipitation_rate",
-            "mean_large_scale_precipitation_rate",
-            "skin_temperature",
-            "type_of_high_vegetation",
-            "type_of_low_vegetation"];
-ERA5_SL_MONTHLY_VARNAMES = [ "t2m", "cvh", "lai_hv", "lai_lv", "cvl", "mcpr", "mlspr", "skt", "tvh", "tvl"];
-for year in 1950:dt_year
-    regrid_ERA5!.(year, 2, ERA5_SL_MONTHLY_SELECTION, ERA5_SL_MONTHLY_VARNAMES; folder = ERA5_SL_MONTHLY);
 end;
