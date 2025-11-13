@@ -14,10 +14,12 @@ function global_simulations!(year::Int, config::OrderedDict{String,Any})
     jld_dicts = read_jld2(jld2_to_read, "GRID_INFO");
 
     # prepare the workers to run in parallel
+    @tinfo "Preparing $(config["SIMU_THREADS"]) workers for global simulations...";
     dynamic_workers!(config["SIMU_THREADS"]);
     @everywhere eval(:(using EmeraldPipelines));
 
     # run the model in parallel
+    @tinfo "Running simulations in parallel...";
     results = @showprogress pmap(thread_simulation!, jld_dicts);
 
     # log the results

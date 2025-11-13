@@ -211,7 +211,7 @@ uuid = "56ca4449-d59c-41e3-9ae8-0f89b45aadb6"
 version = "0.5.0"
 
 [[deps.EmeraldPipelines]]
-deps = ["Dates", "Distributed", "Emerald", "GriddingMachine", "ProgressMeter"]
+deps = ["Dates", "Distributed", "Emerald", "GriddingMachine", "OrderedCollections", "ProgressMeter"]
 path = "."
 uuid = "ed2140b8-dfe6-4b4c-b3f6-273f81b97561"
 version = "0.1.0"

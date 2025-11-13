@@ -30,16 +30,24 @@ include("simulations/global.jl");
 
 # function to run the global simulations
 function run_emerald_land!(year::Int, config::OrderedDict{String,Any} = emerald_land_config()) :: Nothing
-    # regrid ERA5 data for the specific year
+    # 1. regrid ERA5 data for the specific year
+    println();
+    @tinfo "Regridding ERA5 data for year $year...";
     regrid_ERA5!(year, config["NX"]);
 
-    # prepare the grid JLD2 file
+    # 2. prepare the grid JLD2 file to determine where to run simulations
+    println();
+    @tinfo "Preparing grid JLD2 file for year $year...";
     prepare_grid_jld!(year, config);
 
-    # prepare the weather drivers for all grid cells
+    # 3. prepare the weather drivers for all grid cells within the JLD2 file
+    println();
+    @tinfo "Preparing weather drivers for year $year...";
     prepare_weather_drivers!(year, config);
 
-    # run the global simulations
+    # run the global simulations in parallel
+    println();
+    @tinfo "Running global simulations for year $year...";
     global_simulations!(year, config);
 end;
 

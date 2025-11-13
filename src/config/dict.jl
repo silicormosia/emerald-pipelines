@@ -3,8 +3,9 @@ function emerald_land_config()
         # general settings
         "NX"           => 1,
         "GM_VERSION"   => "gm2",
+
         # threading settings
         "GRID_THREADS" => 40,
-        "SiMU_THREADS" => 480,
+        "SIMU_THREADS" => 480,
     );
 end;
