@@ -8,7 +8,7 @@ using Emerald.EmeraldIO.Terminal: input_integer
 using Emerald.EmeraldUtility.Log: @terror, @tinfo
 
 
-# 1. function to locate the default JLD2 file (simplified from ClimaLand-0.1)
+# 1. function to locate the default JLD2 file
 function jld2_dict_file end;
 
 jld2_dict_file(gm_tag::String, dts::LandDatasets) = jld2_dict_file(gm_tag, dts.LABELS.year);
@@ -16,7 +16,7 @@ jld2_dict_file(gm_tag::String, dts::LandDatasets) = jld2_dict_file(gm_tag, dts.L
 jld2_dict_file(gm_tag::String, year::Int) = "$(LAND_SETUP)/emerald_grid_info_$(gm_tag)_$(year).jld2";
 
 
-# 2. function to prepare the JLD2 file (simplified from ClimaLand-0.1)
+# 2. function to prepare the JLD2 file
 function prepare_grid_jld! end;
 
 prepare_grid_jld!(gm_tag::String, year::Int) = (
