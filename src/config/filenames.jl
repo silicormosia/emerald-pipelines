@@ -32,21 +32,16 @@ end;
 
 """
 
-    simulation_global_file(year::Int, config::OrderedDict{String,Any}) :: String
+    simulation_global_file(year::Int, config::OrderedDict{String,Any}, mt::String) :: String
 
 Return the location of the global simulation output file for a specific year, given
 - `year`: the year of simulation
 - `config`: the configuration dictionary for Emerald Land simulations
+- `mt`: the resampling frequency (e.g., "1H", "1D", "8D", "1M", "1Y")
 
 """
-function simulation_global_file end;
-
-simulation_global_file(year::Int, config::OrderedDict{String,Any}) :: String = (
-    return "$(LAND_RESULT)/emerald_land_$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_$(config["NX"])X.nc"
-);
-
-simulation_global_file(year::Int, config::OrderedDict{String,Any}, mt::String) :: String = (
-    @assert mt in ["1D", "8D", "1M", "1Y"] "Resample frequency must be one of 1D, 8D, 1M, or 1Y...";
+function simulation_global_file(year::Int, config::OrderedDict{String,Any}, mt::String) :: String
+    @assert mt in ["1H", "1D", "8D", "1M", "1Y"] "Resample frequency must be one of 1H, 1D, 8D, 1M, or 1Y...";
 
     return "$(LAND_RESULT)/emerald_land_$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_$(config["NX"])X_$(mt).nc"
-);
+end;

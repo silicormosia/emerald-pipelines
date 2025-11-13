@@ -1,7 +1,7 @@
 
 function combine_cache_files!(year::Int, config::OrderedDict{String,Any}) :: Nothing
     # determine the global result file to combine all cache files into
-    global_file = simulation_global_file(year, config);
+    global_file = simulation_global_file(year, config, "1H");
 
     # if the global file already exists, do nothing
     if isfile(global_file)

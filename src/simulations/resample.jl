@@ -20,7 +20,7 @@ resample_simulations!(year::Int, config::OrderedDict{String,Any}) :: Nothing = (
 );
 
 resample_simulations!(year::Int, config::OrderedDict{String,Any}, out_reso::String) :: Nothing = (
-    file_in = out_reso == "1D" ? simulation_global_file(year, config) : simulation_global_file(year, config, "1D");
+    file_in = out_reso == "1D" ? simulation_global_file(year, config, "1H") : simulation_global_file(year, config, "1D");
     file_out = simulation_global_file(year, config, out_reso);
 
     # if the 1-hourly file does not exist, throw an error
