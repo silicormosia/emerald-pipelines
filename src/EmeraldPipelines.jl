@@ -2,6 +2,7 @@ module EmeraldPipelines
 
 using Dates: month, today, year
 using Distributed: pmap, @everywhere
+using OrderedCollections: OrderedDict
 using ProgressMeter: @showprogress
 
 using Emerald.EmeraldData.GlobalDatasets: LandDatasets, grid_dict
@@ -19,6 +20,7 @@ EARLIEST_ERA5_YEAR = 1980;
 
 
 # steps to run the pipelines
+include("config/dict.jl");
 include("weather-drivers/regrid.jl");
 include("gridded-data/gmdicts.jl");
 include("weather-drivers/grid.jl");
@@ -27,18 +29,18 @@ include("simulations/global.jl");
 
 
 # function to run the global simulations
-function run_emerald_land!(year::Int, nx::Int, gmv::Int)
+function run_emerald_land!(year::Int, config::OrderedDict{String,Any} = emerald_land_config()) :: Nothing
     # regrid ERA5 data for the specific year
-    regrid_ERA5!(year, nx);
+    regrid_ERA5!(year, config["NX"]);
 
     # prepare the grid JLD2 file
-    prepare_grid_jld!("gm$(gmv)", year);
+    prepare_grid_jld!(year, config);
 
     # prepare the weather drivers for all grid cells
-    prepare_weather_drivers!(year, gmv);
+    prepare_weather_drivers!(year, config);
 
     # run the global simulations
-    global_simulations!(year, gmv);
+    global_simulations!(year, config);
 end;
 
 

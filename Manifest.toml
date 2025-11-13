@@ -2,7 +2,7 @@
 
 julia_version = "1.12.1"
 manifest_format = "2.0"
-project_hash = "89cf9defb65c3a3987c07987573e78befa66a6d4"
+project_hash = "ee5bb173c6b89ff10fdd9cbfad2e15dc87f466ea"
 
 [[deps.AliasTables]]
 deps = ["PtrArrays", "Random"]
@@ -209,6 +209,12 @@ repo-rev = "wyujie"
 repo-url = "https://github.com/Yujie-W/Emerald.git"
 uuid = "56ca4449-d59c-41e3-9ae8-0f89b45aadb6"
 version = "0.5.0"
+
+[[deps.EmeraldPipelines]]
+deps = ["Dates", "Distributed", "Emerald", "GriddingMachine", "ProgressMeter"]
+path = "."
+uuid = "ed2140b8-dfe6-4b4c-b3f6-273f81b97561"
+version = "0.1.0"
 
 [[deps.ExceptionUnwrapping]]
 deps = ["Test"]

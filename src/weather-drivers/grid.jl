@@ -1,16 +1,15 @@
 """
 
-    prepare_weather_drivers!(year::Int, gmv::Int; nthreads::Int = 40)
+    prepare_weather_drivers!(year::Int, config::OrderedDict{String,Any})
 
 Prepare weather drivers for all grid cells, given
 - `year`: the year of simulation
-- `gmv`: the GriddingMachine version number
-- `nthreads`: number of threads to use (default: 40)
+- `config`: configuration dictionary
 
 """
-function prepare_weather_drivers!(year::Int, gmv::Int; nthreads::Int = 40)
+function prepare_weather_drivers!(year::Int, config::OrderedDict{String,Any})
     # dicts that contains all GriddingMachine data to help determine the locations to simulate
-    jld2_to_read = jld2_dict_file("gm$(gmv)", year);
+    jld2_to_read = jld2_dict_file(year, config["GM_VERSION"]);
     jld_dicts = read_jld2(jld2_to_read, "GRID_INFO");
 
     # prepare the parameters to run in parallel
@@ -21,7 +20,7 @@ function prepare_weather_drivers!(year::Int, gmv::Int; nthreads::Int = 40)
     end;
 
     # run in parallel
-    dynamic_workers!(nthreads);
+    dynamic_workers!(config["GRID_THREADS"]);
     @everywhere eval(:(using EmeraldPipelines));
     @inline thread_func(param) = era5_weather_driver_file(param...);
     @showprogress pmap(thread_func, params);

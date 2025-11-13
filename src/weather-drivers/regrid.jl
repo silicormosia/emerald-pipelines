@@ -1,12 +1,12 @@
 """
 
-    regrid_all_ERA5!(nx::Int = 1)
+    regrid_all_ERA5!(config::OrderedDict{String,Any})
 
 Regrid all the hourly ERA5 data from EARLIEST_ERA5_YEAR to the most recent year available, given
-- `nx`: the spatial resolution factor (nX means the grid size is 1/n degree, default is 1)
+- `config`: an `OrderedDict{String,Any}` containing configuration parameters
 
 """
-function regrid_all_ERA5!(nx::Int = 1)
+function regrid_all_ERA5!(config::OrderedDict{String,Any}) :: Nothing
     # read current date
     dt_today = today();
     dt_year = year(dt_today);
@@ -21,7 +21,7 @@ function regrid_all_ERA5!(nx::Int = 1)
 
     # regrid data year by year
     for year in EARLIEST_ERA5_YEAR:dt_year
-        regrid_ERA5!(year, 1);
+        regrid_ERA5!(year, config["NX"]);
     end;
 
     return nothing

@@ -8,13 +8,13 @@ Run the global SPAC simulations for all grid cells, given
 - `nthreads`: number of workers to use (default: 480)
 
 """
-function global_simulations!(year::Int, gmv::Int; nthreads::Int = 480)
+function global_simulations!(year::Int, config::OrderedDict{String,Any})
     # dicts that contains all GriddingMachine data to help determine the locations to simulate
-    jld2_to_read = jld2_dict_file("gm$(gmv)", year);
+    jld2_to_read = jld2_dict_file(year, config["GM_VERSION"]);
     jld_dicts = read_jld2(jld2_to_read, "GRID_INFO");
 
     # prepare the workers to run in parallel
-    dynamic_workers!(nthreads);
+    dynamic_workers!(config["SIMU_THREADS"]);
     @everywhere eval(:(using EmeraldPipelines));
 
     # run the model in parallel
