@@ -1,14 +1,15 @@
-#
-# This script is meant to prepare the JLD2 files that stores the GriddingMachine data per grid
-#
-using Emerald.EmeraldData.GlobalDatasets: LandDatasets, grid_dict
-using Emerald.EmeraldIO.Folders: LAND_SETUP
-using Emerald.EmeraldIO.Jld2: save_jld2!
-using Emerald.EmeraldIO.Terminal: input_integer
-using Emerald.EmeraldUtility.Log: @terror, @tinfo
 
+"""
 
-# 1. function to locate the default JLD2 file
+    jld2_dict_file(gm_tag::String, dts::LandDatasets)
+    jld2_dict_file(gm_tag::String, year::Int)
+
+Return the location of the JLD2 file that contains the gridded data from GriddingMachine to run Emerald, given
+- `gm_tag`: the GriddingMachine version tag (e.g., "gm1", "gm2", "gm3")
+- `dts`: the LandDatasets object containing the dataset information
+- `year`: the year of the dataset
+
+"""
 function jld2_dict_file end;
 
 jld2_dict_file(gm_tag::String, dts::LandDatasets) = jld2_dict_file(gm_tag, dts.LABELS.year);
@@ -16,7 +17,17 @@ jld2_dict_file(gm_tag::String, dts::LandDatasets) = jld2_dict_file(gm_tag, dts.L
 jld2_dict_file(gm_tag::String, year::Int) = "$(LAND_SETUP)/emerald_grid_info_$(gm_tag)_$(year).jld2";
 
 
-# 2. function to prepare the JLD2 file
+"""
+
+    prepare_grid_jld!(gm_tag::String, year::Int)
+    prepare_grid_jld!(gm_tag::String, dts::LandDatasets)
+
+Prepare the JLD2 file that contains the gridded data from GriddingMachine to run Emerald, given
+- `gm_tag`: the GriddingMachine version tag (e.g., "gm1", "gm2", "gm3")
+- `year`: the year of the dataset
+- `dts`: the LandDatasets object containing the dataset information
+
+"""
 function prepare_grid_jld! end;
 
 prepare_grid_jld!(gm_tag::String, year::Int) = (
@@ -56,10 +67,3 @@ prepare_grid_jld!(gm_tag::String, dts::LandDatasets) = (
 
     return nothing
 );
-
-
-# 3. function to prepare the JLD2 file for the specific year
-input_year = input_integer("Please input the year to prepare the grid JLD2 file (best from 2001 to 2020)> ");
-input_gm_n = input_integer("Please input the gm version (1, 2, or 3; default setting is 2)> ");
-gm_tag = "gm$(input_gm_n)";
-prepare_grid_jld!(gm_tag, input_year);
