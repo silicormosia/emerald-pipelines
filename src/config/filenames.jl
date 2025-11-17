@@ -45,3 +45,17 @@ function simulation_global_file(year::Int, config::OrderedDict{String,Any}, mt::
 
     return "$(LAND_RESULT)/emerald_land_$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_$(config["NX"])X_$(mt).nc"
 end;
+
+
+"""
+
+    simulation_failure_log_file(year::Int, config::OrderedDict{String,Any}) :: String
+
+Return the location of the log file that records the failures during Emerald Land simulations, given
+- `year`: the year of simulation
+- `config`: the configuration dictionary for Emerald Land simulations
+
+"""
+function simulation_failure_log_file(year::Int, config::OrderedDict{String,Any}) :: String
+    return "$(LAND_RESULT)/emerald_land_$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_$(config["NX"])X_failure.log"
+end;
