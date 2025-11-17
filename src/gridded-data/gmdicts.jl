@@ -10,18 +10,22 @@ Prepare the JLD2 file that contains the gridded data from GriddingMachine to run
 function prepare_grid_jld! end;
 
 prepare_grid_jld!(year::Int, config::OrderedDict{String,Any}) = (
+    display_message!("Preparing grid JLD2 file for year $year...", "tinfo_pre");
+
     # if file exists, do nothing
     jld = jld2_dict_file(year, config["GM_VERSION"]);
     if isfile(jld)
-        @tinfo "File $(jld) already exists, skipping...";
+        display_message!("File $(jld) already exists, skipping...", "tinfo_end");
         return nothing
     end;
 
     # save the file if the file does not exist
-    @tinfo "Reading datasets for year $(year)...";
+    display_message!("Reading datasets for year $(year)...", "tinfo_mid");
     dts = LandDatasets{Float64}(config["GM_VERSION"], year);
 
+    display_message!("Saving grid JLD2 file...", "tinfo_mid");
     prepare_grid_jld!(config["GM_VERSION"], dts);
+    display_message!("Grid JLD2 file prepared successfully.", "tinfo_end");
 
     return nothing
 );

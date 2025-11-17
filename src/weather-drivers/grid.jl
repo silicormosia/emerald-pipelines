@@ -8,23 +8,28 @@ Prepare weather drivers for all grid cells, given
 
 """
 function prepare_weather_drivers!(year::Int, config::OrderedDict{String,Any})
-    # dicts that contains all GriddingMachine data to help determine the locations to simulate
+    display_message!("Preparing weather drivers for year $year...", "tinfo_pre");
+
+    # dicts that contains all GriddingMachine data to run weather driver preparation in parallel
+    display_message!("Reading grid JLD2 file and prepare the params to run in parallel...", "tinfo_mid");
     jld2_to_read = jld2_dict_file(year, config["GM_VERSION"]);
     jld_dicts = read_jld2(jld2_to_read, "GRID_INFO");
 
-    # prepare the parameters to run in parallel
     era5_sl_struct = ERA5SingleLevelsDriver();
     params = [];
     for d in jld_dicts
         push!(params, (era5_sl_struct, d));
     end;
 
-    # run in parallel
+    # run weather driver preparation in parallel
+    display_message!("Preparing $(config["GRID_THREADS"]) workers...", "tinfo_mid");
     dynamic_workers!(config["GRID_THREADS"]);
     @everywhere eval(:(using EmeraldPipelines));
+
+    display_message!("Preparing weather drivers for all grid cells in parallel...", "tinfo_mid");
     @inline thread_func_wd(param) = era5_weather_driver_file(param...);
     @showprogress pmap(thread_func_wd, params);
-    @tinfo "All weather drivers prepared!";
+    display_message!("All weather drivers prepared!", "tinfo_end");
 
     return nothing
 end;

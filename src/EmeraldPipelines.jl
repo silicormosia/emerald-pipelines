@@ -1,5 +1,7 @@
 module EmeraldPipelines
 
+using Revise
+
 using Dates: isleapyear, month, today, year
 using Distributed: pmap, @everywhere
 using OrderedCollections: OrderedDict
@@ -11,7 +13,7 @@ using Emerald.EmeraldFrontier: grid_spac, simulation!, spac_config
 using Emerald.EmeraldIO.Folders: LAND_CACHE, LAND_RESULT, LAND_SETUP
 using Emerald.EmeraldIO.Jld2: read_jld2, save_jld2!
 using Emerald.EmeraldLand.SPAC: initialize_spac!
-using Emerald.EmeraldUtility.Log: @terror, @tinfo, @twarn
+using Emerald.EmeraldUtility.Log: display_message!
 using Emerald.EmeraldUtility.Threading: dynamic_workers!
 using NetcdfIO: append_nc!, create_nc!, read_nc
 using Emerald.EmeraldMath.Data: resample_data
@@ -30,6 +32,8 @@ include("gridded-data/gmdicts.jl");
 include("weather-drivers/regrid.jl");
 include("weather-drivers/grid.jl");
 
+include("log/failed.jl");
+
 include("simulations/thread.jl");
 include("simulations/global.jl");
 include("simulations/combine.jl");
@@ -40,24 +44,29 @@ include("simulations/resample.jl");
 function run_emerald_land!(year::Int, config::OrderedDict{String,Any} = emerald_land_config()) :: Nothing
     # 1. prepare the grid JLD2 file to determine where to run simulations
     println();
-    @tinfo "Preparing grid JLD2 file for year $year...";
     prepare_grid_jld!(year, config);
 
     # 2. regrid ERA5 data for the specific year
     println();
-    @tinfo "Regridding ERA5 data for year $year...";
     regrid_ERA5!(year, config["NX"]);
 
     # 3. prepare the weather drivers for all grid cells within the JLD2 file
     println();
-    @tinfo "Preparing weather drivers for year $year...";
     prepare_weather_drivers!(year, config);
 
-    # run the global simulations in parallel
+    # 4. run the global simulations in parallel
     println();
-    @tinfo "Running global simulations for year $year...";
     global_simulations!(year, config);
+
+    # 5. combine all simulation results into a single NetCDF file
+    println();
+    combine_cache_files!(year, config);
+
+    # 6. resample the global simulation results into different temporal resolutions
+    println();
+    resample_simulations!(year, config);
+
 end;
 
 
-end # module EmeraldPipelines
+end; # module EmeraldPipelines
