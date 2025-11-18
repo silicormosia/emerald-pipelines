@@ -11,18 +11,18 @@ function resample_simulations! end;
 
 resample_simulations!(year::Int, config::OrderedDict{String,Any}) :: Nothing = (
     # first resample to daily data, and then to 8D, 1M, and 1Y
-    display_message!("Resampling global simulation results...", "tinfo_pre");
+    pretty_display!("Resampling global simulation results...", "tinfo_pre");
     resample_simulations!(year, config, "1D");
     resample_simulations!(year, config, "8D");
     resample_simulations!(year, config, "1M");
     resample_simulations!(year, config, "1Y");
-    display_message!("Finished resampling global simulation results.", "tinfo_end");
+    pretty_display!("Finished resampling global simulation results.", "tinfo_end");
 
     return nothing
 );
 
 resample_simulations!(year::Int, config::OrderedDict{String,Any}, out_reso::String) :: Nothing = (
-    display_message!("Resampling global simulation results for to $(out_reso)...", "tinfo_mid");
+    pretty_display!("Resampling global simulation results for to $(out_reso)...", "tinfo_mid");
     file_in = out_reso == "1D" ? simulation_global_file(year, config, "1H") : simulation_global_file(year, config, "1D");
     file_out = simulation_global_file(year, config, out_reso);
 
@@ -33,19 +33,19 @@ resample_simulations!(year::Int, config::OrderedDict{String,Any}, out_reso::Stri
 
     # if the output file already exists, skip resampling
     if isfile(file_out)
-        display_message!("$(out_reso) resampled file for year $(year) already exists.", "tinfo_mid");
+        pretty_display!("$(out_reso) resampled file for year $(year) already exists.", "tinfo_mid");
 
         return nothing
     end;
 
     # otherwise, resampling the 1-hourly data to daily data
-    display_message!("Resampling $(length(config["VARIABLES_TO_SAVE"])) datasets for year $(year)...", "tinfo_mid");
+    pretty_display!("Resampling $(length(config["VARIABLES_TO_SAVE"])) datasets for year $(year)...", "tinfo_mid");
     resampled_gpp = "GPP"    in config["VARIABLES_TO_SAVE"] ? resampled_map(year, file_in, "GPP"   , out_reso) : nothing;
     resampled_et  = "ET"     in config["VARIABLES_TO_SAVE"] ? resampled_map(year, file_in, "ET"    , out_reso) : nothing;
     resampled_sif = "SIF740" in config["VARIABLES_TO_SAVE"] ? resampled_map(year, file_in, "SIF740", out_reso) : nothing;
 
     # save the resampled data into a new NetCDF file
-    display_message!("Saving resampled data...", "tinfo_mid");
+    pretty_display!("Saving resampled data...", "tinfo_mid");
     dims = (out_reso == "1Y") ? ["lon", "lat"] : ["lon", "lat", "ind"];
     create_nc!(file_out, dims, [size(resampled_gpp)...]);
     append_nc!(file_out, "lon", read_nc(file_in, "lon"), ATTR_LON, ["lon"]);

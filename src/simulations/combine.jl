@@ -5,7 +5,7 @@ function combine_cache_files!(year::Int, config::OrderedDict{String,Any}) :: Not
 
     # if the global file already exists, do nothing
     if isfile(global_file)
-        display_message!("Global result file $global_file already exists. Skipping...", "tinfo");
+        pretty_display!("Global result file $global_file already exists. Skipping...", "tinfo");
 
         return nothing;
     end;
@@ -22,12 +22,12 @@ function combine_cache_files!(year::Int, config::OrderedDict{String,Any}) :: Not
     map_template = zeros(Float32, nlon, nlat, nind) .* NaN32;
 
     # dicts that contains all GriddingMachine data to help determine the locations to simulate
-    display_message!("Reading in the grid JLD2 file and prepare the file path to read...", "tinfo_pre");
+    pretty_display!("Reading in the grid JLD2 file and prepare the file path to read...", "tinfo_pre");
     jld2_to_read = jld2_dict_file(year, config["GM_VERSION"]);
     jld_dicts = read_jld2(jld2_to_read, "GRID_INFO");
 
     # determine the variable names to read and save
-    display_message!("Preparing the empty arrays to store the combined results...", "tinfo_mid");
+    pretty_display!("Preparing the empty arrays to store the combined results...", "tinfo_mid");
     vars_to_read = String[];
     for var in config["VARIABLES_TO_SAVE"]
         if var == "GPP"
@@ -37,7 +37,7 @@ function combine_cache_files!(year::Int, config::OrderedDict{String,Any}) :: Not
         elseif var == "SIF740"
             push!(vars_to_read, "SIF740");
         else
-            display_message!("Unsupported variable to save: $var", "terror");
+            pretty_display!("Unsupported variable to save: $var", "terror");
         end;
     end;
     map_gpp    = "GPP"    in config["VARIABLES_TO_SAVE"] ? deepcopy(map_template) : nothing;
@@ -45,7 +45,7 @@ function combine_cache_files!(year::Int, config::OrderedDict{String,Any}) :: Not
     map_sif740 = "SIF740" in config["VARIABLES_TO_SAVE"] ? deepcopy(map_template) : nothing;
 
     # combine all cache files into the global results
-    display_message!("Combining all cache files into global result file $global_file...", "tinfo_mid");
+    pretty_display!("Combining all cache files into global result file $global_file...", "tinfo_mid");
     @showprogress for gm_dict in jld_dicts
         cachefile = simulation_cache_file(config, gm_dict);
         ilon = gm_dict["LON_INDEX"];
@@ -57,7 +57,7 @@ function combine_cache_files!(year::Int, config::OrderedDict{String,Any}) :: Not
             "SIF740" in config["VARIABLES_TO_SAVE"] ? (map_sif740[ilon,ilat,:] .= df.SIF740)            : nothing;
         end;
     end;
-    display_message!("All cache files combined into global results.", "tinfo_mid");
+    pretty_display!("All cache files combined into global results.", "tinfo_mid");
 
     # save the combined results into the global NetCDF file
     create_nc!(global_file, ["lon", "lat", "ind"], [nlon, nlat, nind]);
@@ -66,16 +66,16 @@ function combine_cache_files!(year::Int, config::OrderedDict{String,Any}) :: Not
     append_nc!(global_file, "lon", lons, ATTR_LON, ["lon"]);
     append_nc!(global_file, "lat", lats, ATTR_LAT, ["lat"]);
 
-    display_message!("Saving combined GPP into global NetCDF file...", "tinfo_mid");
+    pretty_display!("Saving combined GPP into global NetCDF file...", "tinfo_mid");
     "GPP" in config["VARIABLES_TO_SAVE"] ? append_nc!(global_file, "GPP", map_gpp, ATTR_GPP, ["lon", "lat", "ind"]) : nothing;
 
-    display_message!("Saving combined ET into global NetCDF file...", "tinfo_mid");
+    pretty_display!("Saving combined ET into global NetCDF file...", "tinfo_mid");
     "ET" in config["VARIABLES_TO_SAVE"] ? append_nc!(global_file, "ET", map_et, ATTR_ET, ["lon", "lat", "ind"]) : nothing;
 
-    display_message!("Saving combined SIF740 into global NetCDF file...", "tinfo_mid");
+    pretty_display!("Saving combined SIF740 into global NetCDF file...", "tinfo_mid");
     "SIF740" in config["VARIABLES_TO_SAVE"] ? append_nc!(global_file, "SIF740", map_sif740, ATTR_SIF740, ["lon", "lat", "ind"]) : nothing;
 
-    display_message!("All combined results saved into global result file.", "tinfo_end");
+    pretty_display!("All combined results saved into global result file.", "tinfo_end");
 
     return nothing
 end;

@@ -17,15 +17,15 @@ function log_failures!(year, config::OrderedDict{String,Any}, results::Vector)
     # log the results
     log_file = simulation_failure_log_file(year, config);
     open(log_file, "w") do io
-        display_message!("Some simulations failed at the following grid points:", "twarn_pre");
+        pretty_display!("Some simulations failed at the following grid points:", "twarn_pre");
         println(io, "Some simulations failed at the following grid points:");
         for res in results
             if !isnothing(res)
-                display_message!("    LAT_INDEX = $(lpad(res[1], 4, " ")), LON_INDEX = $(lpad(res[2], 4, " ")))", "twarn_mid");
+                pretty_display!("    LAT_INDEX = $(lpad(res[1], 4, " ")), LON_INDEX = $(lpad(res[2], 4, " ")))", "twarn_mid");
                 println(io, "    LAT_INDEX = $(lpad(res[1], 4, " ")), LON_INDEX = $(lpad(res[2], 4, " "))");
             end;
         end;
-        display_message!("Please rerun the simulations for these sites.", "twarn_end");
+        pretty_display!("Please rerun the simulations for these sites.", "twarn_end");
     end;
 
     return nothing
