@@ -11,7 +11,7 @@ using EmeraldUtilities.MathTools: resample_data
 using NetcdfIO: append_nc!, create_nc!, read_nc
 
 using Emerald.EmeraldData.GlobalDatasets: LandDatasets, grid_dict
-using Emerald.EmeraldData.WeatherDrivers: ERA5SingleLevelsDriver, era5_weather_driver_file, grid_weather_driver, regrid_ERA5!
+using Emerald.EmeraldData.WeatherDrivers: ERA5SingleLevelsDriver, era5_weather_driver_file, grid_file_path, grid_weather_driver, regrid_ERA5!
 using Emerald.EmeraldFrontier: grid_spac, simulation!, spac_config
 using Emerald.EmeraldIO.Folders: LAND_CACHE, LAND_RESULT, LAND_SETUP
 using Emerald.EmeraldIO.Jld2: read_jld2, save_jld2!

@@ -204,7 +204,7 @@ version = "1.6.0"
 
 [[deps.Emerald]]
 deps = ["BenchmarkTools", "CSV", "DataFrames", "Dates", "Distributed", "DocStringExtensions", "EmeraldUtilities", "FileIO", "GLM", "GriddingMachine", "JLD2", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "Pkg", "ProgressMeter", "QuadGK", "Revise", "SpecialFunctions", "Statistics", "StatsBase", "Test"]
-git-tree-sha1 = "7f0a9d127d86abb55b3ae8e4716bfa7592c016d0"
+git-tree-sha1 = "6b42ef8545ee2705c9ff5ed5ae8d288641163d1f"
 repo-rev = "wyujie"
 repo-url = "https://github.com/Yujie-W/Emerald.git"
 uuid = "56ca4449-d59c-41e3-9ae8-0f89b45aadb6"
@@ -654,9 +654,9 @@ version = "1.5.0"
 
 [[deps.PrettyTables]]
 deps = ["Crayons", "LaTeXStrings", "Markdown", "PrecompileTools", "Printf", "REPL", "Reexport", "StringManipulation", "Tables"]
-git-tree-sha1 = "6b8e2f0bae3f678811678065c09571c1619da219"
+git-tree-sha1 = "2542fd0b9476562d80b65d00968c9c5286d5917b"
 uuid = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
-version = "3.1.0"
+version = "3.1.1"
 
 [[deps.Printf]]
 deps = ["Unicode"]
