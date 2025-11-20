@@ -33,6 +33,8 @@ include("data/gmdicts.jl");
 
 include("log/failed.jl");
 
+include("python/visualize-output.jl");
+
 include("simulations/thread.jl");
 include("simulations/global.jl");
 include("simulations/combine.jl");
@@ -64,6 +66,10 @@ function run_emerald_land!(year::Int, config::OrderedDict{String,Any} = emerald_
     # 6. resample the global simulation results into different temporal resolutions
     println();
     resample_simulations!(year, config);
+
+    # 7. plot an example figure to verify the simulations
+    println();
+    visualize_simulation!(year, config);
 
     return nothing
 end;
