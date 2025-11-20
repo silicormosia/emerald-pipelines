@@ -27,10 +27,9 @@ include("config/attributes.jl");
 include("config/dict.jl");
 include("config/filenames.jl");
 
-include("gridded-data/gmdicts.jl");
-
-include("weather-drivers/regrid.jl");
-include("weather-drivers/grid.jl");
+include("data/era5-grids.jl");
+include("data/era5-regrid.jl");
+include("data/gmdicts.jl");
 
 include("log/failed.jl");
 

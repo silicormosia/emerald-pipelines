@@ -218,7 +218,7 @@ version = "0.1.0"
 
 [[deps.EmeraldUtilities]]
 deps = ["Dates", "Distributed", "DocStringExtensions", "OrderedCollections", "Statistics", "StatsBase", "TOML", "Test", "YAML"]
-git-tree-sha1 = "efcc1ba6663967791f64ca2d97356d9ead62b9f4"
+git-tree-sha1 = "cd014516675c130fcb3eb2963cbbcfbcce1d570b"
 repo-rev = "wyujie"
 repo-url = "https://github.com/silicormosia/EmeraldUtilities.jl.git"
 uuid = "bf152e34-6238-4522-95c8-8e628351fb48"
