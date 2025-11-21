@@ -8,7 +8,7 @@ Log the failures of the global simulations for a specific year into a file, give
 - `results`: a vector of results from the global simulations; if not nothing, the element is a tuple of (lat_index, lon_index) for failed simulations
 
 """
-function log_failures!(year, config::OrderedDict{String,Any}, results::Vector)
+function log_failures!(year, config::OrderedDict{String,Any}, results::Vector) :: Nothing
     # if there is no failure, return nothing
     if all(isnothing, results)
         return nothing

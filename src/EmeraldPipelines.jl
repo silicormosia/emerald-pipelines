@@ -5,9 +5,9 @@ using Distributed: pmap, @everywhere
 using OrderedCollections: OrderedDict
 using ProgressMeter: @showprogress
 
-using EmeraldUtilities.DistributedTools: dynamic_workers!
-using EmeraldUtilities.PrettyDisplay: pretty_display!
-using EmeraldUtilities.MathTools: resample_data
+using PkgUtility.DistributedTools: dynamic_workers!
+using PkgUtility.PrettyDisplay: pretty_display!
+using PkgUtility.MathTools: resample
 using NetcdfIO: append_nc!, create_nc!, read_nc
 
 using Emerald.EmeraldData.GlobalDatasets: LandDatasets, grid_dict

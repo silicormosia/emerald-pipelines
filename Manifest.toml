@@ -2,7 +2,7 @@
 
 julia_version = "1.12.1"
 manifest_format = "2.0"
-project_hash = "2a5f4a8becc2119dd9bdc22eefeb104e49f473cd"
+project_hash = "a0fc839e92fcb21c3b9c265f6dfd0101f3932c16"
 
 [[deps.AliasTables]]
 deps = ["PtrArrays", "Random"]
@@ -203,25 +203,17 @@ uuid = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
 version = "1.6.0"
 
 [[deps.Emerald]]
-deps = ["BenchmarkTools", "CSV", "DataFrames", "Dates", "Distributed", "DocStringExtensions", "EmeraldUtilities", "FileIO", "GLM", "GriddingMachine", "JLD2", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "Pkg", "ProgressMeter", "QuadGK", "Revise", "SpecialFunctions", "Statistics", "StatsBase", "Test"]
-git-tree-sha1 = "6b42ef8545ee2705c9ff5ed5ae8d288641163d1f"
+deps = ["BenchmarkTools", "CSV", "DataFrames", "Dates", "Distributed", "DocStringExtensions", "FileIO", "GLM", "GriddingMachine", "JLD2", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "Pkg", "PkgUtility", "ProgressMeter", "QuadGK", "Revise", "SpecialFunctions", "Statistics", "StatsBase", "Test"]
+git-tree-sha1 = "65491bc5d2ca7a8db09704ed666c6253c195fcff"
 repo-rev = "wyujie"
 repo-url = "https://github.com/Yujie-W/Emerald.git"
 uuid = "56ca4449-d59c-41e3-9ae8-0f89b45aadb6"
 version = "0.5.0"
 
 [[deps.EmeraldPipelines]]
-deps = ["Dates", "Distributed", "Emerald", "EmeraldUtilities", "GriddingMachine", "NetcdfIO", "OrderedCollections", "ProgressMeter"]
+deps = ["Dates", "Distributed", "Emerald", "GriddingMachine", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter"]
 path = "."
 uuid = "ed2140b8-dfe6-4b4c-b3f6-273f81b97561"
-version = "0.1.0"
-
-[[deps.EmeraldUtilities]]
-deps = ["Dates", "Distributed", "DocStringExtensions", "OrderedCollections", "Statistics", "StatsBase", "TOML", "Test", "YAML"]
-git-tree-sha1 = "cd014516675c130fcb3eb2963cbbcfbcce1d570b"
-repo-rev = "wyujie"
-repo-url = "https://github.com/silicormosia/EmeraldUtilities.jl.git"
-uuid = "bf152e34-6238-4522-95c8-8e628351fb48"
 version = "0.1.0"
 
 [[deps.ExceptionUnwrapping]]
@@ -520,9 +512,9 @@ version = "1.1.9"
 
 [[deps.MbedTLS_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "3cce3511ca2c6f87b19c34ffc623417ed2798cbd"
+git-tree-sha1 = "ff69a2b1330bcb730b9ac1ab7dd680176f5896b8"
 uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
-version = "2.28.10+0"
+version = "2.28.1010+0"
 
 [[deps.MicrosoftMPI_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Pkg"]
@@ -634,6 +626,14 @@ weakdeps = ["REPL"]
     [deps.Pkg.extensions]
     REPLExt = "REPL"
 
+[[deps.PkgUtility]]
+deps = ["Dates", "Distributed", "DocStringExtensions", "OrderedCollections", "Statistics", "StatsBase", "TOML", "Test", "YAML"]
+git-tree-sha1 = "1bdccdb31dc90c43dc6df26a71e4f5b82be1f333"
+repo-rev = "wyujie"
+repo-url = "https://github.com/Yujie-W/PkgUtility.jl.git"
+uuid = "0d262f2c-28e9-492c-8e19-d7a5c4f11611"
+version = "0.3.0"
+
 [[deps.PooledArrays]]
 deps = ["DataAPI", "Future"]
 git-tree-sha1 = "36d8b4b899628fb92c2749eb488d884a926614d3"
@@ -654,9 +654,9 @@ version = "1.5.0"
 
 [[deps.PrettyTables]]
 deps = ["Crayons", "LaTeXStrings", "Markdown", "PrecompileTools", "Printf", "REPL", "Reexport", "StringManipulation", "Tables"]
-git-tree-sha1 = "2542fd0b9476562d80b65d00968c9c5286d5917b"
+git-tree-sha1 = "c5a07210bd060d6a8491b0ccdee2fa0235fc00bf"
 uuid = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
-version = "3.1.1"
+version = "3.1.2"
 
 [[deps.Printf]]
 deps = ["Unicode"]

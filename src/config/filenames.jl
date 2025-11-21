@@ -26,7 +26,11 @@ Return the location of the cache file for a specific grid cell, given
 
 """
 function simulation_cache_file(config::OrderedDict{String,Any}, gm_dict::Dict{String,Any}) ::String
-    return "$(LAND_CACHE)/emerald_$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(gm_dict["YEAR"])_$(gm_dict["LAT_INDEX"])_$(gm_dict["LON_INDEX"])_$(config["NX"])X.nc";
+    return "$(LAND_CACHE)/" *
+           "emerald_land_$(config["EMERALD_VERSION"])_" *
+           "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(gm_dict["YEAR"])_" *
+           "$(config["CONFIG_TAG"])_" *
+           "$(gm_dict["LAT_INDEX"])_$(gm_dict["LON_INDEX"])_$(config["NX"])X.nc";
 end;
 
 
@@ -43,7 +47,11 @@ Return the location of the global simulation output file for a specific year, gi
 function simulation_global_file(year::Int, config::OrderedDict{String,Any}, mt::String) :: String
     @assert mt in ["1H", "1D", "8D", "1M", "1Y"] "Resample frequency must be one of 1H, 1D, 8D, 1M, or 1Y...";
 
-    return "$(LAND_RESULT)/emerald_land_$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_$(config["NX"])X_$(mt).nc"
+    return "$(LAND_RESULT)/" *
+           "emerald_land_$(config["EMERALD_VERSION"])_" *
+           "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_" *
+           "$(config["CONFIG_TAG"])_" *
+           "$(config["NX"])X_$(mt).nc";
 end;
 
 
@@ -57,5 +65,9 @@ Return the location of the log file that records the failures during Emerald Lan
 
 """
 function simulation_failure_log_file(year::Int, config::OrderedDict{String,Any}) :: String
-    return "$(LAND_RESULT)/emerald_land_$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_$(config["NX"])X_failure.log"
+    return "$(LAND_RESULT)/" *
+           "emerald_land_$(config["EMERALD_VERSION"])_" *
+           "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_" *
+           "$(config["CONFIG_TAG"])_" *
+           "$(config["NX"])X_failed.log";
 end;

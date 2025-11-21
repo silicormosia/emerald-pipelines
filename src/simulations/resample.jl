@@ -40,9 +40,9 @@ resample_simulations!(year::Int, config::OrderedDict{String,Any}, out_reso::Stri
 
     # otherwise, resampling the 1-hourly data to daily data
     pretty_display!("Resampling $(length(config["VARIABLES_TO_SAVE"])) datasets for year $(year)...", "tinfo_mid");
-    resampled_gpp = "GPP"    in config["VARIABLES_TO_SAVE"] ? resampled_map(year, file_in, "GPP"   , out_reso) : nothing;
-    resampled_et  = "ET"     in config["VARIABLES_TO_SAVE"] ? resampled_map(year, file_in, "ET"    , out_reso) : nothing;
-    resampled_sif = "SIF740" in config["VARIABLES_TO_SAVE"] ? resampled_map(year, file_in, "SIF740", out_reso) : nothing;
+    resampled_gpp = "GPP"    in config["VARIABLES_TO_SAVE"] ? resample(read_nc(file_in, "GPP"   ), out_reso, year) : nothing;
+    resampled_et  = "ET"     in config["VARIABLES_TO_SAVE"] ? resample(read_nc(file_in, "ET"    ), out_reso, year) : nothing;
+    resampled_sif = "SIF740" in config["VARIABLES_TO_SAVE"] ? resample(read_nc(file_in, "SIF740"), out_reso, year) : nothing;
 
     # save the resampled data into a new NetCDF file
     pretty_display!("Saving resampled data...", "tinfo_mid");
@@ -56,43 +56,3 @@ resample_simulations!(year::Int, config::OrderedDict{String,Any}, out_reso::Stri
 
     return nothing
 );
-
-
-"""
-
-    resampled_map(year::Int, file_in::String, var::String, out_reso::String) :: Nothing
-
-Resample a specific variable from the input NetCDF file into a different temporal resolution, given
-- `year`: the year of simulation
-- `file_in`: the input NetCDF file that contains the variable to resample
-- `var`: the variable name to resample
-- `out_reso`: the output temporal resolution (one of "1D", "8D", "1M", "1Y")
-
-"""
-function resampled_map(year::Int, file_in::String, var::String, out_reso::String) :: Array
-    # read the data
-    map_in = read_nc(file_in, var);
-
-    # create the output map
-    nlon = size(map_in, 1);
-    nlat = size(map_in, 2);
-    nind = if out_reso == "1D"
-        isleapyear(year) ? 366 : 365
-    elseif out_reso == "8D"
-        46
-    elseif out_reso == "1M"
-        12
-    elseif out_reso == "1Y"
-        1
-    else
-        error("Unsupported output resolution: $out_reso");
-    end;
-    map_out = nind > 1 ? (zeros(Float32, nlon, nlat, nind) .* NaN32) : (zeros(Float32, nlon, nlat) .* NaN32);
-
-    # perform resampling for each variable to save
-    @showprogress for ilon in 1:nlon, ilat in 1:nlat
-        map_out[ilon,ilat,:] .= resample_data(map_in[ilon,ilat,:], year; out_reso = out_reso);
-    end;
-
-    return map_out
-end;
