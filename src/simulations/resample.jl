@@ -48,11 +48,11 @@ resample_simulations!(year::Int, config::OrderedDict{String,Any}, out_reso::Stri
     pretty_display!("Saving resampled data...", "tinfo_mid");
     dims = (out_reso == "1Y") ? ["lon", "lat"] : ["lon", "lat", "ind"];
     create_nc!(file_out, dims, [size(resampled_gpp)...]);
-    append_nc!(file_out, "lon", read_nc(file_in, "lon"), ATTR_LON, ["lon"]);
-    append_nc!(file_out, "lat", read_nc(file_in, "lat"), ATTR_LAT, ["lat"]);
-    "GPP"    in config["VARIABLES_TO_SAVE"] ? append_nc!(file_out, "GPP"   , resampled_gpp, ATTR_GPP   , dims) : nothing;
-    "ET"     in config["VARIABLES_TO_SAVE"] ? append_nc!(file_out, "ET"    , resampled_et , ATTR_ET    , dims) : nothing;
-    "SIF740" in config["VARIABLES_TO_SAVE"] ? append_nc!(file_out, "SIF740", resampled_sif, ATTR_SIF740, dims) : nothing;
+    append_nc!(file_out, "lon", read_nc(file_in, "lon"), detect_attribute("lon"), ["lon"]);
+    append_nc!(file_out, "lat", read_nc(file_in, "lat"), detect_attribute("lat"), ["lat"]);
+    "GPP"    in config["VARIABLES_TO_SAVE"] ? append_nc!(file_out, "GPP"   , resampled_gpp, detect_attribute("GPP")   , dims) : nothing;
+    "ET"     in config["VARIABLES_TO_SAVE"] ? append_nc!(file_out, "ET"    , resampled_et , detect_attribute("ET")    , dims) : nothing;
+    "SIF740" in config["VARIABLES_TO_SAVE"] ? append_nc!(file_out, "SIF740", resampled_sif, detect_attribute("SIF740"), dims) : nothing;
 
     return nothing
 );

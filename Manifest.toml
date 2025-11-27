@@ -543,10 +543,12 @@ uuid = "7243133f-43d8-5620-bbf4-c2c921802cf3"
 version = "401.900.300+0"
 
 [[deps.NetcdfIO]]
-deps = ["CommonDataModel", "DataFrames", "DiskArrays", "DocStringExtensions", "NetCDF_jll", "Test"]
-git-tree-sha1 = "478002abbc32841028f0101f69ef461ef9e19bab"
+deps = ["CommonDataModel", "DataFrames", "DiskArrays", "DocStringExtensions", "NetCDF_jll", "OrderedCollections", "Test"]
+git-tree-sha1 = "f42e13fb503dca61ae27e1ca37f35fa3408b08d2"
+repo-rev = "wyujie"
+repo-url = "https://github.com/Yujie-W/NetcdfIO.jl.git"
 uuid = "6a36f34d-89cf-423a-87c4-84549e82f670"
-version = "0.2.11"
+version = "0.2.12"
 
 [[deps.NetworkOptions]]
 uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"

@@ -63,17 +63,16 @@ function combine_cache_files!(year::Int, config::OrderedDict{String,Any}) :: Not
     create_nc!(global_file, ["lon", "lat", "ind"], [nlon, nlat, nind]);
     lons = collect(Float32, 0.5/config["NX"]:1/config["NX"]:360) .- 180;
     lats = collect(Float32, 0.5/config["NX"]:1/config["NX"]:180) .- 90;
-    append_nc!(global_file, "lon", lons, ATTR_LON, ["lon"]);
-    append_nc!(global_file, "lat", lats, ATTR_LAT, ["lat"]);
+    append_nc!(global_file, "lon", lons, detect_attribute("lon"), ["lon"]);
+    append_nc!(global_file, "lat", lats, detect_attribute("lat"), ["lat"]);
 
     pretty_display!("Saving combined GPP into global NetCDF file...", "tinfo_mid");
-    "GPP" in config["VARIABLES_TO_SAVE"] ? append_nc!(global_file, "GPP", map_gpp, ATTR_GPP, ["lon", "lat", "ind"]) : nothing;
-
+    "GPP" in config["VARIABLES_TO_SAVE"] ? append_nc!(global_file, "GPP", map_gpp, detect_attribute("GPP"), ["lon", "lat", "ind"]) : nothing;
     pretty_display!("Saving combined ET into global NetCDF file...", "tinfo_mid");
-    "ET" in config["VARIABLES_TO_SAVE"] ? append_nc!(global_file, "ET", map_et, ATTR_ET, ["lon", "lat", "ind"]) : nothing;
+    "ET" in config["VARIABLES_TO_SAVE"] ? append_nc!(global_file, "ET", map_et, detect_attribute("ET"), ["lon", "lat", "ind"]) : nothing;
 
     pretty_display!("Saving combined SIF740 into global NetCDF file...", "tinfo_mid");
-    "SIF740" in config["VARIABLES_TO_SAVE"] ? append_nc!(global_file, "SIF740", map_sif740, ATTR_SIF740, ["lon", "lat", "ind"]) : nothing;
+    "SIF740" in config["VARIABLES_TO_SAVE"] ? append_nc!(global_file, "SIF740", map_sif740, detect_attribute("SIF740"), ["lon", "lat", "ind"]) : nothing;
 
     pretty_display!("All combined results saved into global result file.", "tinfo_end");
 

@@ -8,7 +8,7 @@ using ProgressMeter: @showprogress
 using PkgUtility.DistributedTools: dynamic_workers!
 using PkgUtility.PrettyDisplay: pretty_display!
 using PkgUtility.MathTools: resample
-using NetcdfIO: append_nc!, create_nc!, read_nc
+using NetcdfIO: append_nc!, create_nc!, detect_attribute, read_nc
 
 using Emerald.EmeraldData.GlobalDatasets: LandDatasets, grid_dict
 using Emerald.EmeraldData.WeatherDrivers: ERA5SingleLevelsDriver, era5_weather_driver_file, grid_file_path, grid_weather_driver, regrid_ERA5!
@@ -23,7 +23,6 @@ EARLIEST_ERA5_YEAR = 1980;
 
 
 # steps to run the pipelines
-include("config/attributes.jl");
 include("config/dict.jl");
 include("config/filenames.jl");
 
