@@ -13,13 +13,18 @@ using NetcdfIO: append_nc!, create_nc!, detect_attribute, read_nc
 using Emerald.EmeraldData.GlobalDatasets: LandDatasets, grid_dict
 using Emerald.EmeraldData.WeatherDrivers: ERA5SingleLevelsDriver, era5_weather_driver_file, grid_file_path, grid_weather_driver, regrid_ERA5!
 using Emerald.EmeraldFrontier: grid_spac, simulation!, spac_config
-using Emerald.EmeraldIO.Folders: LAND_CACHE, LAND_RESULT, LAND_SETUP
 using Emerald.EmeraldIO.Jld2: read_jld2, save_jld2!
 using Emerald.EmeraldLand.SPAC: initialize_spac!
 
 
 # global constants
 EARLIEST_ERA5_YEAR = 1980;
+
+# Land
+LAND_FOLDER = joinpath(homedir(), "DATASERVER/model/Emerald");
+LAND_CACHE  = joinpath(LAND_FOLDER, "cache");
+LAND_RESULT = joinpath(LAND_FOLDER, "simulations");
+LAND_SETUP  = joinpath(LAND_FOLDER, "setups");
 
 
 # steps to run the pipelines
