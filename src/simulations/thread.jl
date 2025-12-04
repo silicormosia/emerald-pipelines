@@ -1,15 +1,15 @@
 """
 
-    thread_simulation!(config::OrderedDict{String,Any}, gm_dict::Dict{String,Any})
+    thread_simulation!(setting::OrderedDict{String,Any}, gmd::Dict{String,Any})
 
 Run the SPAC simulation for a specific grid cell in a separate thread, given
-- `config`: the configuration dictionary containing parameters for the simulation
-- `gm_dict`: a dictionary that contains the GriddingMachine information for the specific grid cell
+- `setting`: the configuration dictionary containing parameters for the simulation
+- `gmd`: a dictionary that contains the GriddingMachine information for the specific grid cell
 
 """
-thread_simulation!(config::OrderedDict{String,Any}, gm_dict::Dict{String,Any}) = (
+thread_simulation!(setting::OrderedDict{String,Any}, gmd::Dict{String,Any}) = (
     # locate where to store the cache file
-    cachefile = simulation_cache_file(config, gm_dict);
+    cachefile = simulation_cache_file(setting, gmd);
 
     # if the cache file exists, skip the simulation
     if isfile(cachefile)
@@ -18,32 +18,17 @@ thread_simulation!(config::OrderedDict{String,Any}, gm_dict::Dict{String,Any}) =
 
     # otherwise, run the simulation
     try
-        config = spac_config(gm_dict);
-        spac = grid_spac(config, gm_dict);
-
-        # customize the config and spac settings
-        config.ALLOW_LEAF_REGROWTH = false;
-        config.ALLOW_LEAF_SHEDDING = false;
-        config.ALLOW_XYLEM_GROWTH = false;
-        config.EFFECTIVE_LEAF_SPECTRA = false;
-        config.ENABLE_DROUGHT_LEGACY = false;
-        config.ENABLE_REF = true;
-        config.ENABLE_SIF = true;
-
-        for s in spac.soils
-            s.state.θ = s.trait.vc.Θ_SAT;
-        end;
-        spac.plant.pool.c_pool = Inf;
-
-        initialize_spac!(config, spac);
-
-        df = grid_weather_driver("wd1", gm_dict);
-        simulation!(config, spac, df; saving = cachefile);
+        saving_dict = parameters_to_save(all = true);
+        config = site_config(gmd);
+        spac = site_spac(config, gmd);
+        driver = read_jld2(jld2_driver_file(setting, gmd));
+        results = site_result_tuple(spac, driver, saving_dict);
+        simulation!(config, spac, driver, results; saving = cachefile, saving_dict = saving_dict);
 
         return nothing
     catch e
-        @info "Simulation failed at LAT_INDEX=$(gm_dict["LAT_INDEX"]), LON_INDEX=$(gm_dict["LON_INDEX"])";
+        @info "Simulation failed at LAT_INDEX=$(gmd["LAT_INDEX"]), LON_INDEX=$(gmd["LON_INDEX"])";
 
-        return (gm_dict["LAT_INDEX"], gm_dict["LON_INDEX"])
+        return (gmd["LAT_INDEX"], gmd["LON_INDEX"])
     end;
 );

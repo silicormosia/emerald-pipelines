@@ -15,6 +15,6 @@ function emerald_land_config()
         "REMOVE_WHEN_DONE"  => true,
 
         # saving settings related to the global NetCDF output files
-        "VARIABLES_TO_SAVE" => String["GPP", "ET", "SIF740"],
+        "VARIABLES_TO_COMBINE" => String["GPP", "ET", "SIF740"],
     );
 end;

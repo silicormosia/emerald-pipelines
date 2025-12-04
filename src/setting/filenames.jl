@@ -18,19 +18,37 @@ jld2_dict_file(year::Int, gm_tag::String) = "$(LAND_SETUP)/emerald_grid_info_$(g
 
 """
 
-    simulation_cache_file(config::OrderedDict{String,Any}, gm_dict::Dict{String,Any}) ::String
+    jld2_driver_file(config::OrderedDict{String,Any}, gmd::Dict{String,Any}) ::String
+
+Return the location of the JLD2 file that contains the weather driver data for a specific grid cell, given
+- `config`: the configuration dictionary for Emerald Land simulations
+- `gmd`: a dictionary that contains the GriddingMachine information for the specific grid cell
+
+"""
+function jld2_driver_file(config::OrderedDict{String,Any}, gmd::Dict{String,Any}) ::String
+    return "$(LAND_DRIVER)/$(gmd["YEAR"])/" *
+           "emerald_driver_$(config["WD_VERSION"])_$(gmd["YEAR"])_" *
+           "$(gmd["LAT_INDEX"])_$(gmd["LON_INDEX"])_$(config["NX"])X.jld2"
+end;
+
+
+
+
+"""
+
+    simulation_cache_file(config::OrderedDict{String,Any}, gmd::Dict{String,Any}) ::String
 
 Return the location of the cache file for a specific grid cell, given
 - `config`: the configuration dictionary for Emerald Land simulations
-- `gm_dict`: a dictionary that contains the GriddingMachine information for the specific grid cell
+- `gmd`: a dictionary that contains the GriddingMachine information for the specific grid cell
 
 """
-function simulation_cache_file(config::OrderedDict{String,Any}, gm_dict::Dict{String,Any}) ::String
+function simulation_cache_file(config::OrderedDict{String,Any}, gmd::Dict{String,Any}) ::String
     return "$(LAND_CACHE)/" *
            "emerald_land_$(config["EMERALD_VERSION"])_" *
-           "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(gm_dict["YEAR"])_" *
+           "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(gmd["YEAR"])_" *
            "$(config["CONFIG_TAG"])_" *
-           "$(gm_dict["LAT_INDEX"])_$(gm_dict["LON_INDEX"])_$(config["NX"])X.nc";
+           "$(gmd["LAT_INDEX"])_$(gmd["LON_INDEX"])_$(config["NX"])X.nc"
 end;
 
 
@@ -51,7 +69,7 @@ function simulation_global_file(year::Int, config::OrderedDict{String,Any}, mt::
            "emerald_land_$(config["EMERALD_VERSION"])_" *
            "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_" *
            "$(config["CONFIG_TAG"])_" *
-           "$(config["NX"])X_$(mt).nc";
+           "$(config["NX"])X_$(mt).nc"
 end;
 
 
@@ -69,5 +87,5 @@ function simulation_failure_log_file(year::Int, config::OrderedDict{String,Any})
            "emerald_land_$(config["EMERALD_VERSION"])_" *
            "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_" *
            "$(config["CONFIG_TAG"])_" *
-           "$(config["NX"])X_failed.log";
+           "$(config["NX"])X_failed.log"
 end;

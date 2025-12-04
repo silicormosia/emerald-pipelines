@@ -1,79 +1,71 @@
 module EmeraldPipelines
 
-using Dates: isleapyear, month, today, year
+using Dates: isleapyear
 using Distributed: pmap, @everywhere
+using GriddingMachine.Indexer: LandDatasets, WeatherDriverLabels, grid_dict, grid_weather
+using NetcdfIO: append_nc!, create_nc!, detect_attribute, read_nc
 using OrderedCollections: OrderedDict
-using ProgressMeter: @showprogress
-
+using PkgUtility.DataIO: read_jld2, save_jld2!
 using PkgUtility.DistributedTools: dynamic_workers!
 using PkgUtility.PrettyDisplay: pretty_display!
 using PkgUtility.MathTools: resample
-using NetcdfIO: append_nc!, create_nc!, detect_attribute, read_nc
+using ProgressMeter: @showprogress
 
-using Emerald.EmeraldData.GlobalDatasets: LandDatasets, grid_dict
-using Emerald.EmeraldData.WeatherDrivers: ERA5SingleLevelsDriver, era5_weather_driver_file, grid_file_path, grid_weather_driver, regrid_ERA5!
-using Emerald.EmeraldFrontier: grid_spac, simulation!, spac_config
-using Emerald.EmeraldIO.Jld2: read_jld2, save_jld2!
-using Emerald.EmeraldLand.SPAC: initialize_spac!
+using Emerald.Land: parameters_to_save, simulation!, site_config, site_result_tuple, site_spac
 
 
-# global constants
-EARLIEST_ERA5_YEAR = 1980;
-
-# Land
+# Land folders (create path if not exist)
 LAND_FOLDER = joinpath(homedir(), "DATASERVER/model/Emerald");
 LAND_CACHE  = joinpath(LAND_FOLDER, "cache");
+LAND_DRIVER = joinpath(LAND_FOLDER, "drivers");
 LAND_RESULT = joinpath(LAND_FOLDER, "simulations");
 LAND_SETUP  = joinpath(LAND_FOLDER, "setups");
+for p in (LAND_CACHE, LAND_DRIVER, LAND_RESULT, LAND_SETUP)
+    isdir(p) || mkpath(p);
+end;
 
 
 # steps to run the pipelines
-include("config/dict.jl");
-include("config/filenames.jl");
+include("setting/dict.jl");
+include("setting/filenames.jl");
 
-include("data/era5-grids.jl");
-include("data/era5-regrid.jl");
 include("data/gmdicts.jl");
-
-include("log/failed.jl");
-
-include("python/visualize-output.jl");
+include("data/wdcache.jl");
 
 include("simulations/thread.jl");
+include("simulations/failed.jl");
 include("simulations/global.jl");
 include("simulations/combine.jl");
 include("simulations/resample.jl");
 
+include("python/visualize-output.jl");
+
 
 # function to run the global simulations
-function run_emerald_land!(year::Int, config::OrderedDict{String,Any} = emerald_land_config()) :: Nothing
+function run_emerald_land!(year::Int, setting::OrderedDict{String,Any} = emerald_land_config()) :: Nothing
     # 1. prepare the grid JLD2 file to determine where to run simulations
     println();
-    prepare_grid_jld!(year, config);
+    prepare_grid_jld!(year, setting);
 
-    # 2. regrid ERA5 data for the specific year
+    # 2. prepare the weather drivers for all grid cells within the JLD2 file
     println();
-    regrid_ERA5!(year, config["NX"]);
+    prepare_weather_drivers!(year, setting);
 
-    # 3. prepare the weather drivers for all grid cells within the JLD2 file
+    # 3. run the global simulations in parallel
     println();
-    prepare_weather_drivers!(year, config);
+    global_simulations!(year, setting);
 
-    # 4. run the global simulations in parallel
+    # 4. combine all simulation results into a single NetCDF file
     println();
-    global_simulations!(year, config);
+    combine_cache_files!(year, setting);
 
-    # 5. combine all simulation results into a single NetCDF file
+    # 5. resample the global simulation results into different temporal resolutions
     println();
-    combine_cache_files!(year, config);
+    resample_simulations!(year, setting);
 
-    # 6. resample the global simulation results into different temporal resolutions
+    # 6. plot an example figure to verify the simulations
     println();
-    resample_simulations!(year, config);
-
-    # 7. plot an example figure to verify the simulations
-    println();
-    visualize_simulation!(year, config);
+    visualize_simulation!(year, setting);
 
     return nothing
 end;
