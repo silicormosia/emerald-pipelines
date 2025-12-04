@@ -5,6 +5,7 @@ function emerald_land_config()
         "CONFIG_TAG"        => "default",
 
         # general settings
+        "FT"                => Float64,
         "NX"                => 1,
         "GM_VERSION"        => "gm2",
         "WD_VERSION"        => "wd1",

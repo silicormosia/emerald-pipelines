@@ -11,7 +11,7 @@ function prepare_weather_drivers!(year::Int, setting::OrderedDict{String,Any})
     pretty_display!("Preparing weather drivers for year $year...", "tinfo_pre");
 
     # dicts that contains all GriddingMachine data to run weather driver preparation in parallel
-    pretty_display!("Reading grid JLD2 file and prepare the params to run in parallel...", "tinfo_mid");
+    pretty_display!("Reading grid JLD2 file and prepare the params to run Emerald...", "tinfo_mid");
     jld2_to_read = jld2_dict_file(year, setting["GM_VERSION"]);
     jld_dicts = read_jld2(jld2_to_read, "GRID_INFO");
 
@@ -34,7 +34,7 @@ function prepare_weather_drivers!(year::Int, setting::OrderedDict{String,Any})
         pretty_display!("Preparing weather drivers for all grid cells in parallel...", "tinfo_mid");
         @inline thread_func_wd(param) = save_jld2!(param[5], grid_weather(param[1], param[2], param[3]; FT = param[4]));
         @showprogress pmap(thread_func_wd, params);
-    else
+    else length(params) > 0
         pretty_display!("Preparing weather drivers for all grid cells in serial...", "tinfo_mid");
         @showprogress for param in params
             save_jld2!(param[5], grid_weather(param[1], param[2], param[3]; FT = param[4]));

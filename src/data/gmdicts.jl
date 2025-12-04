@@ -15,7 +15,7 @@ prepare_grid_jld!(year::Int, setting::OrderedDict{String,Any}) = (
     # if file exists, do nothing
     jld = jld2_dict_file(year, setting["GM_VERSION"]);
     if isfile(jld)
-        pretty_display!("File $(jld) already exists, skipping...", "tinfo_end");
+        pretty_display!("The JLD2 file already exists, skipping...", "tinfo_end");
         return nothing
     end;
 
