@@ -25,10 +25,14 @@ for p in (LAND_CACHE, LAND_DRIVER, LAND_RESULT, LAND_SETUP)
 end;
 
 
+# include the Emerald Land extension functions (not yet ported to Emerald.jl)
+
+
 # steps to run the pipelines
 include("setting/dict.jl");
 include("setting/filenames.jl");
 
+include("data/clean.jl");
 include("data/gmdicts.jl");
 include("data/wdcache.jl");
 

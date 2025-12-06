@@ -222,7 +222,7 @@ version = "1.6.0"
 
 [[deps.Emerald]]
 deps = ["CSV", "DataFrames", "Dates", "Distributed", "DocStringExtensions", "FileIO", "GLM", "GriddingMachine", "JLD2", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter", "QuadGK", "Revise", "SpecialFunctions", "Statistics", "StatsBase"]
-git-tree-sha1 = "750d81ef58eda40e2eabd37af9b6b37b5516d275"
+git-tree-sha1 = "5883c3c2f75504fff854b647ad8568e7dc6e83c0"
 repo-rev = "wyujie"
 repo-url = "https://github.com/silicormosia/Emerald.jl.git"
 uuid = "fc6e11eb-0395-4a1f-b22e-d645b12bbd20"
@@ -893,9 +893,9 @@ version = "1.8.0"
 
 [[deps.StatsBase]]
 deps = ["AliasTables", "DataAPI", "DataStructures", "LinearAlgebra", "LogExpFunctions", "Missings", "Printf", "Random", "SortingAlgorithms", "SparseArrays", "Statistics", "StatsAPI"]
-git-tree-sha1 = "064b532283c97daae49e544bb9cb413c26511f8c"
+git-tree-sha1 = "be5733d4a2b03341bdcab91cea6caa7e31ced14b"
 uuid = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
-version = "0.34.8"
+version = "0.34.9"
 
 [[deps.StatsFuns]]
 deps = ["HypergeometricFunctions", "IrrationalConstants", "LogExpFunctions", "Reexport", "Rmath", "SpecialFunctions"]
