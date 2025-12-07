@@ -24,7 +24,7 @@ thread_simulation!(setting::OrderedDict{String,Any}, gmd::Dict{String,Any}) = (
         wd = Dict{String,Vector{setting["FT"]}}(read_jld2(jld2_driver_file(setting, gmd)));
         driver = site_driver_tuple(gmd, wd);
         results = site_result_tuple(spac, wd, saving_dict);
-        simulation!(config, spac, driver, results; saving = cachefile, saving_dict = saving_dict);
+        simulation!(config, spac, driver, results; saving = cachefile, saving_dict = saving_dict, selection = setting["SIMULATION_PERIOD"]);
         nothing
     catch e
         @info "Simulation failed at LAT_INDEX=$(gmd["LAT_INDEX"]), LON_INDEX=$(gmd["LON_INDEX"])";

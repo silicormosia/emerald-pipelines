@@ -8,6 +8,13 @@ Plot an example figure to visualize the simulation results by calling a Python s
 
 """
 function visualize_simulation!(year::Int, setting::OrderedDict{String,Any}) :: Nothing
+    # if the selection is not :, do not resample anything
+    if !(typeof(setting["SIMULATION_PERIOD"]) <: Colon)
+        pretty_display!("Custom simulation period detected, skipping visualization step...", "tinfo");
+
+        return nothing
+    end;
+
     pretty_display!("Visualizing simulation results by calling Python...", "tinfo_pre");
     nc_1y = simulation_global_file(year, setting, "1Y");
     nc_1y_jpg = replace(nc_1y, ".nc" => ".jpg");

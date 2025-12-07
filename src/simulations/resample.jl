@@ -10,6 +10,13 @@ Resample the global simulation results for a specific year into different tempor
 function resample_simulations! end;
 
 resample_simulations!(year::Int, setting::OrderedDict{String,Any}) :: Nothing = (
+    # if the selection is not :, do not resample anything
+    if !(typeof(setting["SIMULATION_PERIOD"]) <: Colon)
+        pretty_display!("Custom simulation period detected, skipping resampling step...", "tinfo");
+
+        return nothing
+    end;
+
     # first resample to daily data, and then to 8D, 1M, and 1Y
     pretty_display!("Resampling global simulation results...", "tinfo_pre");
     resample_simulations!(year, setting, "1D");
