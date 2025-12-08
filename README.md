@@ -17,35 +17,13 @@ EmeraldPipelines.run_emerald_land!(2019);
 ## Customized Run
 The `EmeraldPipelines.run_emerald_land!` function takes two parameters:
 - `year::Int` An integer for year
-- `setting::OrderedDict{String,Any}` A dictionary that stores the settings
-
-By default, `setting` was defined as (as of 2025-12-06, changes pending)
-```julia
-OrderedDict{String,Any}(
-        # Emerald version
-        "EMERALD_VERSION"   => "b01",
-        "CONFIG_TAG"        => "default",
-
-        # general settings
-        "FT"                => Float64,
-        "NX"                => 1,
-        "GM_VERSION"        => "gm2",
-        "WD_VERSION"        => "wd1",
-
-        # threading settings
-        "GRID_THREADS"      => 40,
-        "SIMU_THREADS"      => 480,
-        "REMOVE_WHEN_DONE"  => true,
-
-        # saving settings related to the global NetCDF output files
-        "VARIABLES_TO_COMBINE" => String["GPP", "ET", "SIF740"],
-);
-```
+- `settings::OrderedDict{String,Any}` A dictionary that stores the settings
 
 Therefore, if you want to run the model using 200 cores in parallel, you may do this way:
 ```julia
-using EmeraldPipelines
-settings = EmeraldPipelines.emerald_land_config();
+using Emerald;
+using EmeraldPipelines;
+settings = Emerald.Land.land_model_settings();
 settings["SIMU_THREADS"] = 200;
 EmeraldPipelines.run_emerald_land!(2019, settings);
 ```
