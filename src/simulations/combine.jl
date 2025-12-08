@@ -39,14 +39,10 @@ function combine_cache_files!(year::Int, setting::OrderedDict{String,Any}) :: No
     pretty_display!("Preparing the empty arrays to store the combined results...", "tinfo_mid");
     vars_to_read = String[];
     for var in setting["VARIABLES_TO_COMBINE"]
-        if var == "GPP"
-            push!(vars_to_read, "GPP");
-        elseif var == "ET"
+        if var == "ET"
             push!(vars_to_read, "ET_VEGE", "ET_SOIL");
-        elseif var == "SIF740"
-            push!(vars_to_read, "SIF740");
         else
-            pretty_display!("Unsupported variable to save: $var", "terror");
+            push!(vars_to_read, var);
         end;
     end;
 
@@ -57,7 +53,7 @@ function combine_cache_files!(year::Int, setting::OrderedDict{String,Any}) :: No
     end;
 
     # combine all cache files into the global results
-    pretty_display!("Combining all cache files into global result file $global_file...", "tinfo_mid");
+    pretty_display!("Combining all cache files into global result file...", "tinfo_mid");
     @showprogress for gmd in jld_dicts
         cachefile = simulation_cache_file(setting, gmd);
         ilon = gmd["LON_INDEX"];

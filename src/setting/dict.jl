@@ -1,8 +1,8 @@
 function emerald_land_config()
-    return OrderedDict{String,Any}(
+    settings = OrderedDict{String,Any}(
         # Emerald version
         "EMERALD_VERSION"      => "b01",
-        "CONFIG_TAG"           => "default",
+        "CONFIG_TAG"           => "testing",
 
         # general settings
         "FT"                   => Float64,
@@ -21,4 +21,6 @@ function emerald_land_config()
         # testing settings (by default, run the model for 10 days in the middle of a year)
         "SIMULATION_PERIOD"    => 4321:4344,
     );
+
+    return settings
 end;
