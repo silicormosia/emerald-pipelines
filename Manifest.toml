@@ -222,7 +222,7 @@ version = "1.6.0"
 
 [[deps.Emerald]]
 deps = ["DataFrames", "DocStringExtensions", "GriddingMachine", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter", "QuadGK", "Revise", "SpecialFunctions", "Statistics", "Test"]
-git-tree-sha1 = "b81f82d278cff4afeb50b6ab0220bfbe3c4cc745"
+git-tree-sha1 = "865e9c3774d5239f5db32a6ce4fa46d86ff15fa6"
 repo-rev = "wyujie"
 repo-url = "https://github.com/Yujie-W/EmeraldDeveloping.git"
 uuid = "56ca4449-d59c-41e3-9ae8-0f89b45aadb6"
@@ -301,18 +301,18 @@ version = "6.3.0+2"
 
 [[deps.Genie]]
 deps = ["ArgParse", "Base64", "Dates", "Distributed", "DotEnv", "EzXML", "FilePathsBase", "HTTP", "HttpCommon", "Inflector", "JSON", "JuliaFormatter", "Logging", "LoggingExtras", "LoweredCodeUtils", "MIMEs", "Markdown", "Millboard", "Nettle", "OrderedCollections", "Pkg", "REPL", "Random", "Reexport", "Revise", "SHA", "Serialization", "Sockets", "UUIDs", "Unicode", "XML2_jll", "YAML"]
-git-tree-sha1 = "7b7fadbd0eec59b57ff2deb4e1d956eca57835bc"
+git-tree-sha1 = "63f48dd32e3fb343f3360630963285a9dacbccb4"
 uuid = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
-version = "5.35.3"
+version = "5.35.5"
 
 [[deps.Glob]]
-git-tree-sha1 = "97285bbd5230dd766e9ef6749b80fc617126d496"
+git-tree-sha1 = "83cb0092e2792b9e3a865b6655e88f5b862607e2"
 uuid = "c27321d9-0574-5035-807b-f59d2c89b15c"
-version = "1.3.1"
+version = "1.4.0"
 
 [[deps.GriddingMachine]]
 deps = ["Dates", "Downloads", "Genie", "HTTP", "JSON", "NetcdfIO", "PkgUtility", "Test", "YAML"]
-git-tree-sha1 = "88027d1784e9a3c330f53c6a4122a92f5ae7533c"
+git-tree-sha1 = "2fcb3cde3552440fcbd581f72e6307899855276c"
 repo-rev = "wyujie"
 repo-url = "https://github.com/CliMA/GriddingMachine.jl.git"
 uuid = "f20cf718-bf4d-4727-bc8f-485b1f283ac6"
@@ -430,9 +430,9 @@ version = "1.0.62"
 
 [[deps.JuliaInterpreter]]
 deps = ["CodeTracking", "InteractiveUtils", "Random", "UUIDs"]
-git-tree-sha1 = "c98fa9e3a241e92895be025614ec33eca0ffa5f7"
+git-tree-sha1 = "80580012d4ed5a3e8b18c7cd86cebe4b816d17a6"
 uuid = "aa1ae85d-cabe-5617-a682-6adf51b2e16a"
-version = "0.10.8"
+version = "0.10.9"
 
 [[deps.JuliaSyntaxHighlighting]]
 deps = ["StyledStrings"]
