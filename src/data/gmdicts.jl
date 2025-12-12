@@ -1,19 +1,19 @@
 """
 
-    prepare_grid_jld!(year::Int, setting::OrderedDict{String,Any})
+    prepare_grid_jld!(year::Int, settings::OrderedDict{String,Any})
 
 Prepare the JLD2 file that contains the gridded data from GriddingMachine to run Emerald, given
 - `year`: the year of the dataset
-- `setting`: the configuration dictionary containing parameters such as "GM_VERSION"
+- `settings`: the configuration dictionary containing parameters such as "GM_VERSION"
 
 """
 function prepare_grid_jld! end;
 
-prepare_grid_jld!(year::Int, setting::OrderedDict{String,Any}) = (
+prepare_grid_jld!(year::Int, settings::OrderedDict{String,Any}) = (
     pretty_display!("Preparing grid JLD2 file for year $year...", "tinfo_pre");
 
     # if file exists, do nothing
-    jld = jld2_dict_file(year, setting["GM_VERSION"]);
+    jld = jld2_dict_file(year, settings["GM_VERSION"]);
     if isfile(jld)
         pretty_display!("The JLD2 file already exists, skipping...", "tinfo_end");
         return nothing
@@ -21,10 +21,10 @@ prepare_grid_jld!(year::Int, setting::OrderedDict{String,Any}) = (
 
     # save the file if the file does not exist
     pretty_display!("Reading datasets for year $(year)...", "tinfo_mid");
-    dts = LandDatasets{Float64}(setting["GM_VERSION"], year; msg_level = "tinfo_mid");
+    dts = LandDatasets{Float64}(settings["GM_VERSION"], year; msg_level = "tinfo_mid");
 
     pretty_display!("Saving grid JLD2 file...", "tinfo_mid");
-    prepare_grid_jld!(setting["GM_VERSION"], dts);
+    prepare_grid_jld!(settings["GM_VERSION"], dts);
     pretty_display!("Grid JLD2 file prepared successfully.", "tinfo_end");
 
     return nothing

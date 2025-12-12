@@ -1,21 +1,21 @@
 """
 
-    log_failures!(year, setting::OrderedDict{String,Any}, results::Vector)
+    log_failures!(year, settings::OrderedDict{String,Any}, results::Vector)
 
 Log the failures of the global simulations for a specific year into a file, given
 - `year`: the year of simulation
-- `setting`: the configuration dictionary for Emerald Land simulations
+- `settings`: the configuration dictionary for Emerald Land simulations
 - `results`: a vector of results from the global simulations; if not nothing, the element is a tuple of (lat_index, lon_index) for failed simulations
 
 """
-function log_failures!(year, setting::OrderedDict{String,Any}, results::Vector) :: Nothing
+function log_failures!(year, settings::OrderedDict{String,Any}, results::Vector) :: Nothing
     # if there is no failure, return nothing
     if all(isnothing, results)
         return nothing
     end;
 
     # log the results
-    log_file = simulation_failure_log_file(year, setting);
+    log_file = simulation_failure_log_file(year, settings);
     open(log_file, "w") do io
         pretty_display!("Some simulations failed at the following grid points:", "twarn_pre");
         println(io, "Some simulations failed at the following grid points:");
