@@ -1,13 +1,13 @@
 """
 
-    thread_simulation!(settings::OrderedDict{String,Any}, gmd::Dict{String,Any})
+    thread_simulation!(settings::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict})
 
 Run the SPAC simulation for a specific grid cell in a separate thread, given
 - `settings`: the configuration dictionary containing parameters for the simulation
 - `gmd`: a dictionary that contains the GriddingMachine information for the specific grid cell
 
 """
-thread_simulation!(settings::OrderedDict{String,Any}, gmd::Dict{String,Any}) = (
+thread_simulation!(settings::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict}) = (
     # locate where to store the cache file
     cachefile = simulation_cache_file(settings, gmd);
 
@@ -24,7 +24,7 @@ thread_simulation!(settings::OrderedDict{String,Any}, gmd::Dict{String,Any}) = (
         wd = Dict{String,Vector{settings["FT"]}}(read_jld2(jld2_driver_file(settings, gmd)));
         driver = site_driver_tuple(gmd, wd);
         results = site_result_tuple(spac, wd, sd);
-        simulation!(config, spac, driver, results; saving = cachefile, saving_dict = sd, selection = settings["SIMULATION_PERIOD"], δt = settings["TIME_STEP"]);
+        simulation!(config, spac, driver, results; saving = cachefile, saving_setting = sd, selection = settings["SIMULATION_PERIOD"], δt = settings["TIME_STEP"]);
         nothing
     catch e
         @info "Simulation failed at LAT_INDEX=$(gmd["LAT_INDEX"]), LON_INDEX=$(gmd["LON_INDEX"])";

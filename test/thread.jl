@@ -18,4 +18,4 @@ spac = Emerald.Land.site_spac(config, gmd);
 wd = Dict{String,Vector{settings["FT"]}}(read_jld2(EmeraldPipelines.jld2_driver_file(settings, gmd)));
 driver = Emerald.Land.site_driver_tuple(gmd, wd);
 results = Emerald.Land.site_result_tuple(spac, wd, sd);
-df = Emerald.Land.simulation!(config, spac, driver, results; saving_dict = sd, selection = settings["SIMULATION_PERIOD"], δt = settings["TIME_STEP"]);
+df = Emerald.Land.simulation!(config, spac, driver, results; saving_setting = sd, selection = settings["SIMULATION_PERIOD"], δt = settings["TIME_STEP"]);

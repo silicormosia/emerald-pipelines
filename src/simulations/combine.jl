@@ -39,11 +39,7 @@ function combine_cache_files!(year::Int, settings::OrderedDict{String,Any}) :: N
     pretty_display!("Preparing the empty arrays to store the combined results...", "tinfo_mid");
     vars_to_read = String[];
     for var in settings["VARIABLES_TO_COMBINE"]
-        if var == "ET"
-            push!(vars_to_read, "ET_VEGE", "ET_SOIL");
-        else
-            push!(vars_to_read, var);
-        end;
+        push!(vars_to_read, var);
     end;
 
     # create the empty maps to store the combined results
@@ -61,9 +57,6 @@ function combine_cache_files!(year::Int, settings::OrderedDict{String,Any}) :: N
         if isfile(cachefile)
             df = read_nc(cachefile, vars_to_read);
             for k in settings["VARIABLES_TO_COMBINE"]
-                if k == "ET"
-                    df[!,"ET"] = df.ET_VEGE .+ df.ET_SOIL;
-                end;
                 map_dict[k][ilon,ilat,:] .= df[:,k];
             end;
         end;

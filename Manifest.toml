@@ -311,8 +311,8 @@ uuid = "c27321d9-0574-5035-807b-f59d2c89b15c"
 version = "1.4.0"
 
 [[deps.GriddingMachine]]
-deps = ["Dates", "Downloads", "Genie", "HTTP", "JSON", "NetcdfIO", "PkgUtility", "Test", "YAML"]
-git-tree-sha1 = "2fcb3cde3552440fcbd581f72e6307899855276c"
+deps = ["Dates", "Downloads", "Genie", "HTTP", "JSON", "NetcdfIO", "OrderedCollections", "PkgUtility", "Revise", "Test", "YAML"]
+git-tree-sha1 = "52caff6158f28afa6a3024c8d82ae023ce3f348d"
 repo-rev = "wyujie"
 repo-url = "https://github.com/CliMA/GriddingMachine.jl.git"
 uuid = "f20cf718-bf4d-4727-bc8f-485b1f283ac6"

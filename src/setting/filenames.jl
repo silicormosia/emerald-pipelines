@@ -18,14 +18,14 @@ jld2_dict_file(year::Int, gm_tag::String) = "$(LAND_SETUP)/emerald_grid_info_$(g
 
 """
 
-    jld2_driver_file(config::OrderedDict{String,Any}, gmd::Dict{String,Any}) ::String
+    jld2_driver_file(config::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict}) ::String
 
 Return the location of the JLD2 file that contains the weather driver data for a specific grid cell, given
 - `config`: the configuration dictionary for Emerald Land simulations
 - `gmd`: a dictionary that contains the GriddingMachine information for the specific grid cell
 
 """
-function jld2_driver_file(config::OrderedDict{String,Any}, gmd::Dict{String,Any}) ::String
+function jld2_driver_file(config::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict}) ::String
     return "$(LAND_DRIVER)/$(gmd["YEAR"])/" *
            "emerald_driver_$(config["WD_VERSION"])_$(gmd["YEAR"])_" *
            "$(gmd["LAT_INDEX"])_$(gmd["LON_INDEX"])_$(config["NX"])X.jld2"
@@ -36,14 +36,14 @@ end;
 
 """
 
-    simulation_cache_file(config::OrderedDict{String,Any}, gmd::Dict{String,Any}) ::String
+    simulation_cache_file(config::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict}) ::String
 
 Return the location of the cache file for a specific grid cell, given
 - `config`: the configuration dictionary for Emerald Land simulations
 - `gmd`: a dictionary that contains the GriddingMachine information for the specific grid cell
 
 """
-function simulation_cache_file(config::OrderedDict{String,Any}, gmd::Dict{String,Any}) ::String
+function simulation_cache_file(config::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict}) ::String
     return "$(LAND_CACHE)/" *
            "emerald_land_$(config["EMERALD_VERSION"])_" *
            "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(gmd["YEAR"])_" *

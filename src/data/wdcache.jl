@@ -26,7 +26,7 @@ function prepare_weather_drivers!(year::Int, settings::OrderedDict{String,Any})
     for gmd in jld_dicts
         fpath = jld2_driver_file(settings, gmd);
         if !isfile(fpath)
-            push!(params, (wdl, gmd["LATITUDE"], gmd["LONGITUDE"], gmd["FT"], fpath));
+            push!(params, (wdl, gmd["LATITUDE"], gmd["LONGITUDE"], settings["FT"], fpath));
         end;
     end;
 
@@ -37,12 +37,12 @@ function prepare_weather_drivers!(year::Int, settings::OrderedDict{String,Any})
         @everywhere eval(:(using EmeraldPipelines));
 
         pretty_display!("Preparing weather drivers for all grid cells in parallel...", "tinfo_mid");
-        @inline thread_func_wd(param) = save_jld2!(param[5], grid_weather(param[1], param[2], param[3]; FT = param[4]));
+        @inline thread_func_wd(param) = save_jld2!(param[5], Dict(grid_weather(param[1], param[2], param[3]; FT = param[4])));
         @showprogress pmap(thread_func_wd, params);
     else length(params) > 0
         pretty_display!("Preparing weather drivers for all grid cells in serial...", "tinfo_mid");
         @showprogress for param in params
-            save_jld2!(param[5], grid_weather(param[1], param[2], param[3]; FT = param[4]));
+            save_jld2!(param[5], Dict(grid_weather(param[1], param[2], param[3]; FT = param[4])));
         end;
     end;
 

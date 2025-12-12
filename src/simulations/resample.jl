@@ -45,21 +45,22 @@ resample_simulations!(year::Int, settings::OrderedDict{String,Any}, out_reso::St
         return nothing
     end;
 
-    # otherwise, resampling the 1-hourly data to daily data
-    pretty_display!("Resampling $(length(settings["VARIABLES_TO_COMBINE"])) datasets for year $(year)...", "tinfo_mid");
-    resampled_gpp = "GPP"    in settings["VARIABLES_TO_COMBINE"] ? resample(read_nc(file_in, "GPP"   ), out_reso, year) : nothing;
-    resampled_et  = "ET"     in settings["VARIABLES_TO_COMBINE"] ? resample(read_nc(file_in, "ET"    ), out_reso, year) : nothing;
-    resampled_sif = "SIF740" in settings["VARIABLES_TO_COMBINE"] ? resample(read_nc(file_in, "SIF740"), out_reso, year) : nothing;
-
-    # save the resampled data into a new NetCDF file
-    pretty_display!("Saving resampled data...", "tinfo_mid");
-    dims = (out_reso == "1Y") ? ["lon", "lat"] : ["lon", "lat", "ind"];
-    create_nc!(file_out, dims, [size(resampled_gpp)...]);
+    # otherwise, resampling the data and save it
     append_nc!(file_out, "lon", read_nc(file_in, "lon"), detect_attribute("lon"), ["lon"]);
     append_nc!(file_out, "lat", read_nc(file_in, "lat"), detect_attribute("lat"), ["lat"]);
-    "GPP"    in settings["VARIABLES_TO_COMBINE"] ? append_nc!(file_out, "GPP"   , resampled_gpp, detect_attribute("GPP")   , dims) : nothing;
-    "ET"     in settings["VARIABLES_TO_COMBINE"] ? append_nc!(file_out, "ET"    , resampled_et , detect_attribute("ET")    , dims) : nothing;
-    "SIF740" in settings["VARIABLES_TO_COMBINE"] ? append_nc!(file_out, "SIF740", resampled_sif, detect_attribute("SIF740"), dims) : nothing;
+    dims = if out_reso == "1Y"
+        append_nc!(file_out, "ind", read_nc(file_in, "ind"), detect_attribute("ind"), ["ind"]);
+        ["lon", "lat", "ind"]
+    else
+        ["lon", "lat"]
+    end;
+    pretty_display!("Resampling $(length(settings["VARIABLES_TO_COMBINE"])) datasets for year $(year)...", "tinfo_mid");
+    for varname in settings["VARIABLES_TO_COMBINE"]
+        pretty_display!("Resampling the $(varname) data...", "tinfo_mid");
+        resampled_data = resample(read_nc(file_in, varname), out_reso, year);
+        pretty_display!("Saving resampled data...", "tinfo_mid");
+        append_nc!(file_out, varname, resampled_data, detect_attribute(varname), dims);
+    end;
 
     return nothing
 );
