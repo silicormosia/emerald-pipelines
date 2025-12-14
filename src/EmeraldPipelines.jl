@@ -68,6 +68,10 @@ function run_emerald_land!(year::Int, settings::OrderedDict{String,Any} = land_m
     println();
     visualize_simulation!(year, settings);
 
+    # 7. clean up all cache files to save disk space
+    println();
+    clean_cache!(year, settings);
+
     return nothing
 end;
 

@@ -10,6 +10,16 @@ Prepare weather drivers for all grid cells, given
 function prepare_weather_drivers!(year::Int, settings::OrderedDict{String,Any})
     pretty_display!("Preparing weather drivers for year $year...", "tinfo_pre");
 
+    # determine the global result file to combine all cache files into
+    global_file = simulation_global_file(year, settings, "1H");
+
+    # if the global file already exists, do nothing
+    if isfile(global_file)
+        pretty_display!("Global result file $global_file already exists. Skipping the weather preparation step...", "tinfo_end");
+
+        return nothing;
+    end;
+
     # predownload the necessary weather data if not exist
     wdl = WeatherDriverLabels(settings["WD_VERSION"], year);
     for fn in fieldnames(typeof(wdl))

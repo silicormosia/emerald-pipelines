@@ -40,7 +40,7 @@ resample_simulations!(year::Int, settings::OrderedDict{String,Any}, out_reso::St
 
     # if the output file already exists, skip resampling
     if isfile(file_out)
-        pretty_display!("$(out_reso) resampled file for year $(year) already exists.", "tinfo_mid");
+        pretty_display!("$(out_reso) resampled file for year $(year) already exists, skipping the resampling step...", "tinfo_mid");
 
         return nothing
     end;

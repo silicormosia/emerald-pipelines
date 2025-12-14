@@ -25,7 +25,7 @@ function visualize_simulation!(year::Int, settings::OrderedDict{String,Any}) :: 
         run(`python3 $myscript $nc_1y`);
         pretty_display!("Finished plotting the simulation results.", "tinfo_end");
     else
-        pretty_display!("JPG file already exists, skipping...", "tinfo_end");
+        pretty_display!("JPG file already exists, skipping the visualization step...", "tinfo_end");
     end;
 
     return nothing

@@ -11,6 +11,16 @@ Run the global SPAC simulations for all grid cells, given
 function global_simulations!(year::Int, settings::OrderedDict{String,Any}) :: Nothing
     pretty_display!("Running global simulations for year $year...", "tinfo_pre");
 
+    # determine the global result file to combine all cache files into
+    global_file = simulation_global_file(year, settings, "1H");
+
+    # if the global file already exists, do nothing
+    if isfile(global_file)
+        pretty_display!("Global result file $global_file already exists. Skipping the simulation per thread...", "tinfo_end");
+
+        return nothing;
+    end;
+
     # dicts that contains all GriddingMachine data to help determine the locations to simulate
     pretty_display!("Reading in the JLD2 file to prepare the grids to run in parallel...", "tinfo_mid");
     jld2_to_read = jld2_dict_file(year, settings["GM_VERSION"]);

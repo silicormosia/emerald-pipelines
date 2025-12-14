@@ -2,7 +2,7 @@
 
 julia_version = "1.12.1"
 manifest_format = "2.0"
-project_hash = "7e71796aebc7d34999bdcdc2122809c585db0a9a"
+project_hash = "485d1f4aef856f45c1ac01ecaaa2418a5eaffc7d"
 
 [[deps.AliasTables]]
 deps = ["PtrArrays", "Random"]
@@ -221,15 +221,15 @@ uuid = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
 version = "1.6.0"
 
 [[deps.Emerald]]
-deps = ["DataFrames", "DocStringExtensions", "GriddingMachine", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter", "QuadGK", "SpecialFunctions", "Statistics", "Test"]
-git-tree-sha1 = "6501ab14ac26337068d874b2fc247edebf6a9369"
-repo-rev = "main"
-repo-url = "https://github.com/silicormosia/Emerald.jl.git"
-uuid = "fc6e11eb-0395-4a1f-b22e-d645b12bbd20"
-version = "1.0.0"
+deps = ["DataFrames", "DocStringExtensions", "GriddingMachine", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter", "QuadGK", "Revise", "SpecialFunctions", "Statistics", "Test"]
+git-tree-sha1 = "1f599abfe0fff7086afa592463530b49a1a3287a"
+repo-rev = "wyujie"
+repo-url = "https://github.com/Yujie-W/EmeraldDeveloping"
+uuid = "56ca4449-d59c-41e3-9ae8-0f89b45aadb6"
+version = "0.5.0"
 
 [[deps.EmeraldPipelines]]
-deps = ["Dates", "Distributed", "Emerald", "GriddingMachine", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter"]
+deps = ["Dates", "Distributed", "GriddingMachine", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter"]
 path = "."
 uuid = "ed2140b8-dfe6-4b4c-b3f6-273f81b97561"
 version = "0.1.0"
