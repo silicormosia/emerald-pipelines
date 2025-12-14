@@ -1,13 +1,15 @@
 """
 
-    visualize_simulation!(year::Int, settings::OrderedDict{String,Any}) :: Nothing
+    visualize_simulation!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
 
 Plot an example figure to visualize the simulation results by calling a Python script, given
 - `year`: the year of simulation
 - `settings`: the configuration dictionary for Emerald Land simulations
 
 """
-function visualize_simulation!(year::Int, settings::OrderedDict{String,Any}) :: Nothing
+function visualize_simulation!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
+    println();
+
     # if the selection is not :, do not resample anything
     if !(typeof(settings["SIMULATION_PERIOD"]) <: Colon)
         pretty_display!("Custom simulation period detected, skipping visualization step...", "tinfo");

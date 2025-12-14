@@ -1,13 +1,15 @@
 """
 
-    thread_simulation!(settings::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict})
+    thread_simulation!(settings::Union{Dict,OrderedDict}, gmd::Union{Dict,OrderedDict}) :: Union{Nothing,Tuple{Int,Int}}
 
 Run the SPAC simulation for a specific grid cell in a separate thread, given
 - `settings`: the configuration dictionary containing parameters for the simulation
 - `gmd`: a dictionary that contains the GriddingMachine information for the specific grid cell
 
+If the simulation is successful, return nothing; if failed, return a tuple of (lat_index, lon_index), which will be logged later.
+
 """
-thread_simulation!(settings::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict}) = (
+thread_simulation!(settings::Union{Dict,OrderedDict}, gmd::Union{Dict,OrderedDict}) :: Union{Nothing,Tuple{Int,Int}} = (
     # locate where to store the cache file
     cachefile = simulation_cache_file(settings, gmd);
 

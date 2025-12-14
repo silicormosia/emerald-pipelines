@@ -42,34 +42,29 @@ include("simulations/resample.jl");
 include("python/visualize-output.jl");
 
 
-# function to run the global simulations
-function run_emerald_land!(year::Int, settings::OrderedDict{String,Any} = land_model_settings()) :: Nothing
+"""
+
+    run_emerald_land!(year::Int, settings::Union{Dict,OrderedDict} = land_model_settings()) :: Nothing
+
+Run the full Emerald Land simulation pipelines, given
+- `year`: the year of simulation
+- `settings`: the configuration dictionary for Emerald Land simulations
+
+"""
+function run_emerald_land!(year::Int, settings::Union{Dict,OrderedDict} = land_model_settings()) :: Nothing
     # 1. prepare the grid JLD2 file to determine where to run simulations
-    println();
-    prepare_grid_jld!(year, settings);
-
     # 2. prepare the weather drivers for all grid cells within the JLD2 file
-    println();
-    prepare_weather_drivers!(year, settings);
-
     # 3. run the global simulations in parallel
-    println();
-    global_simulations!(year, settings);
-
     # 4. combine all simulation results into a single NetCDF file
-    println();
-    combine_cache_files!(year, settings);
-
     # 5. resample the global simulation results into different temporal resolutions
-    println();
-    resample_simulations!(year, settings);
-
     # 6. plot an example figure to verify the simulations
-    println();
-    visualize_simulation!(year, settings);
-
     # 7. clean up all cache files to save disk space
-    println();
+    prepare_grid_jld!(year, settings);
+    prepare_weather_drivers!(year, settings);
+    global_simulations!(year, settings);
+    combine_cache_files!(year, settings);
+    resample_simulations!(year, settings);
+    visualize_simulation!(year, settings);
     clean_cache!(year, settings);
 
     return nothing

@@ -16,8 +16,8 @@ EmeraldPipelines.run_emerald_land!(2019);
 
 ## Customized Run
 The `EmeraldPipelines.run_emerald_land!` function takes two parameters:
-- `year::Int` An integer for year
-- `settings::OrderedDict{String,Any}` A dictionary that stores the settings
+- `year` An integer for year
+- `settings` A dictionary that stores the settings
 
 Therefore, if you want to run the model using 200 cores in parallel, you may do this way:
 ```julia

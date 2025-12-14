@@ -1,13 +1,17 @@
 """
 
-    clean_cache!()
+    clean_cache!() :: Nothing
+    clean_cache!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
 
-Remove all files in the LAND_CACHE directory
+Remove all files in the LAND_CACHE directory (if nothing given), or remove cache files for a specific run, given
+- `year`: The year of the simulation
+- `settings`: The settings dictionary used for the simulation
 
 """
 function clean_cache! end;
 
 clean_cache!() :: Nothing = (
+    println();
     pretty_display!("Cleaning up all files in the LAND_CACHE directory...", "tinfo_pre");
     @showprogress for file in readdir(LAND_CACHE)
         fpath = joinpath(LAND_CACHE, file);
@@ -18,7 +22,8 @@ clean_cache!() :: Nothing = (
     return nothing
 );
 
-clean_cache!(year::Int, settings::OrderedDict{String,Any}) :: Nothing = (
+clean_cache!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing = (
+    println();
     pretty_display!("Cleaning up cache files for year $(year)...", "tinfo_pre");
 
     # dicts that contains all GriddingMachine data to help determine the locations to simulate

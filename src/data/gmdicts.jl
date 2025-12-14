@@ -1,6 +1,6 @@
 """
 
-    prepare_grid_jld!(year::Int, settings::OrderedDict{String,Any})
+    prepare_grid_jld!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
 
 Prepare the JLD2 file that contains the gridded data from GriddingMachine to run Emerald, given
 - `year`: the year of the dataset
@@ -9,7 +9,8 @@ Prepare the JLD2 file that contains the gridded data from GriddingMachine to run
 """
 function prepare_grid_jld! end;
 
-prepare_grid_jld!(year::Int, settings::OrderedDict{String,Any}) = (
+prepare_grid_jld!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing = (
+    println();
     pretty_display!("Preparing grid JLD2 file for year $year...", "tinfo_pre");
 
     # if file exists, do nothing
@@ -30,7 +31,7 @@ prepare_grid_jld!(year::Int, settings::OrderedDict{String,Any}) = (
     return nothing
 );
 
-prepare_grid_jld!(gm_tag::String, dts::LandDatasets) = (
+prepare_grid_jld!(gm_tag::String, dts::LandDatasets) :: Nothing = (
     # combine lat and lon
     dicts  = Dict{String,Any}[];
     for ilat in 1:180*dts.LABELS.nx, ilon in 1:360*dts.LABELS.nx

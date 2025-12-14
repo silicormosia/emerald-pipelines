@@ -64,9 +64,9 @@ uuid = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
 version = "0.10.15"
 
 [[deps.ChunkCodecCore]]
-git-tree-sha1 = "51f4c10ee01bda57371e977931de39ee0f0cdb3e"
+git-tree-sha1 = "1a3ad7e16a321667698a19e77362b35a1e94c544"
 uuid = "0b6fb165-00bc-4d37-ab8b-79f91016dbe1"
-version = "1.0.0"
+version = "1.0.1"
 
 [[deps.ChunkCodecLibZlib]]
 deps = ["ChunkCodecCore", "Zlib_jll"]
@@ -222,14 +222,14 @@ version = "1.6.0"
 
 [[deps.Emerald]]
 deps = ["DataFrames", "DocStringExtensions", "GriddingMachine", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter", "QuadGK", "Revise", "SpecialFunctions", "Statistics", "Test"]
-git-tree-sha1 = "1f599abfe0fff7086afa592463530b49a1a3287a"
+git-tree-sha1 = "95163a17f70debedec7149c0ef68eaa0233d69fe"
 repo-rev = "wyujie"
 repo-url = "https://github.com/Yujie-W/EmeraldDeveloping"
 uuid = "56ca4449-d59c-41e3-9ae8-0f89b45aadb6"
 version = "0.5.0"
 
 [[deps.EmeraldPipelines]]
-deps = ["Dates", "Distributed", "GriddingMachine", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter"]
+deps = ["Dates", "Distributed", "Emerald", "GriddingMachine", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter"]
 path = "."
 uuid = "ed2140b8-dfe6-4b4c-b3f6-273f81b97561"
 version = "0.1.0"

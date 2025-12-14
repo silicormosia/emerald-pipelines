@@ -1,14 +1,14 @@
 """
 
-    global_simulations!(year::Int, gmv::Int; nthreads::Int = 480)
+    global_simulations!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
 
 Run the global SPAC simulations for all grid cells, given
 - `year`: the year of simulation
-- `gmv`: the GriddingMachine version number
-- `nthreads`: number of workers to use (default: 480)
+- `settings`: the configuration dictionary for Emerald Land simulations
 
 """
-function global_simulations!(year::Int, settings::OrderedDict{String,Any}) :: Nothing
+function global_simulations!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
+    println();
     pretty_display!("Running global simulations for year $year...", "tinfo_pre");
 
     # determine the global result file to combine all cache files into
@@ -18,7 +18,7 @@ function global_simulations!(year::Int, settings::OrderedDict{String,Any}) :: No
     if isfile(global_file)
         pretty_display!("Global result file $global_file already exists. Skipping the simulation per thread...", "tinfo_end");
 
-        return nothing;
+        return nothing
     end;
 
     # dicts that contains all GriddingMachine data to help determine the locations to simulate

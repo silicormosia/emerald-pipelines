@@ -1,13 +1,14 @@
 """
 
-    combine_cache_files!(year::Int, settings::OrderedDict{String,Any}) :: Nothing
+    combine_cache_files!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
 
 Combine all individual cache files from grid cell simulations into a single global NetCDF file, given
 - `year`: the year of simulation
 - `settings`: the configuration dictionary containing parameters for the simulation
 
 """
-function combine_cache_files!(year::Int, settings::OrderedDict{String,Any}) :: Nothing
+function combine_cache_files!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
+    println();
     pretty_display!("Combining cache files into global result file...", "tinfo_pre");
 
     # determine the global result file to combine all cache files into
@@ -17,7 +18,7 @@ function combine_cache_files!(year::Int, settings::OrderedDict{String,Any}) :: N
     if isfile(global_file)
         pretty_display!("Global result file $global_file already exists. Skipping combining the cache files...", "tinfo");
 
-        return nothing;
+        return nothing
     end;
 
     # determine the size of the simulated results

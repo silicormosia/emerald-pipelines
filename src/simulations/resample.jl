@@ -1,6 +1,6 @@
 """
 
-    resample_simulations!(year::Int, settings::OrderedDict{String,Any}) :: Nothing
+    resample_simulations!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
 
 Resample the global simulation results for a specific year into different temporal resolutions, given
 - `year`: the year of simulation
@@ -9,7 +9,9 @@ Resample the global simulation results for a specific year into different tempor
 """
 function resample_simulations! end;
 
-resample_simulations!(year::Int, settings::OrderedDict{String,Any}) :: Nothing = (
+resample_simulations!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing = (
+    println();
+
     # if the selection is not :, do not resample anything
     if !(typeof(settings["SIMULATION_PERIOD"]) <: Colon)
         pretty_display!("Custom simulation period detected, skipping resampling step...", "tinfo");
@@ -28,7 +30,7 @@ resample_simulations!(year::Int, settings::OrderedDict{String,Any}) :: Nothing =
     return nothing
 );
 
-resample_simulations!(year::Int, settings::OrderedDict{String,Any}, out_reso::String) :: Nothing = (
+resample_simulations!(year::Int, settings::Union{Dict,OrderedDict}, out_reso::String) :: Nothing = (
     pretty_display!("Resampling global simulation results for to $(out_reso)...", "tinfo_mid");
     file_in = out_reso == "1D" ? simulation_global_file(year, settings, "1H") : simulation_global_file(year, settings, "1D");
     file_out = simulation_global_file(year, settings, out_reso);

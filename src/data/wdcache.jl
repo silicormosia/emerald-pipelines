@@ -1,13 +1,14 @@
 """
 
-    prepare_weather_drivers!(year::Int, settings::OrderedDict{String,Any})
+    prepare_weather_drivers!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
 
 Prepare weather drivers for all grid cells, given
 - `year`: the year of simulation
-- `settings`: configuration dictionary
+- `settings`: setting dictionary
 
 """
-function prepare_weather_drivers!(year::Int, settings::OrderedDict{String,Any})
+function prepare_weather_drivers!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing
+    println();
     pretty_display!("Preparing weather drivers for year $year...", "tinfo_pre");
 
     # determine the global result file to combine all cache files into
@@ -17,7 +18,7 @@ function prepare_weather_drivers!(year::Int, settings::OrderedDict{String,Any})
     if isfile(global_file)
         pretty_display!("Global result file $global_file already exists. Skipping the weather preparation step...", "tinfo_end");
 
-        return nothing;
+        return nothing
     end;
 
     # predownload the necessary weather data if not exist

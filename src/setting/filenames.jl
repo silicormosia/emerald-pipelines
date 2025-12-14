@@ -1,7 +1,7 @@
 """
 
-    jld2_dict_file(dts::LandDatasets, gm_tag::String)
-    jld2_dict_file(year::Int, gm_tag::String)
+    jld2_dict_file(dts::LandDatasets, gm_tag::String) :: String
+    jld2_dict_file(year::Int, gm_tag::String) :: String
 
 Return the location of the JLD2 file that contains the gridded data from GriddingMachine to run Emerald, given
 - `dts`: the LandDatasets object containing the dataset information
@@ -11,81 +11,79 @@ Return the location of the JLD2 file that contains the gridded data from Griddin
 """
 function jld2_dict_file end;
 
-jld2_dict_file(dts::LandDatasets, gm_tag::String) = jld2_dict_file(dts.LABELS.year, gm_tag);
+jld2_dict_file(dts::LandDatasets, gm_tag::String) :: String = jld2_dict_file(dts.LABELS.year, gm_tag);
 
-jld2_dict_file(year::Int, gm_tag::String) = "$(LAND_SETUP)/emerald_grid_info_$(gm_tag)_$(year).jld2";
+jld2_dict_file(year::Int, gm_tag::String) :: String = "$(LAND_SETUP)/emerald_grid_info_$(gm_tag)_$(year).jld2";
 
 
 """
 
-    jld2_driver_file(config::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict}) ::String
+    jld2_driver_file(settings::Union{Dict,OrderedDict}, gmd::Union{Dict,OrderedDict}) ::String
 
 Return the location of the JLD2 file that contains the weather driver data for a specific grid cell, given
-- `config`: the configuration dictionary for Emerald Land simulations
+- `settings`: the configuration dictionary for Emerald Land simulations
 - `gmd`: a dictionary that contains the GriddingMachine information for the specific grid cell
 
 """
-function jld2_driver_file(config::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict}) ::String
+function jld2_driver_file(settings::Union{Dict,OrderedDict}, gmd::Union{Dict,OrderedDict}) ::String
     return "$(LAND_DRIVER)/$(gmd["YEAR"])/" *
-           "emerald_driver_$(config["WD_VERSION"])_$(gmd["YEAR"])_" *
-           "$(gmd["LAT_INDEX"])_$(gmd["LON_INDEX"])_$(config["NX"])X.jld2"
+           "emerald_driver_$(settings["WD_VERSION"])_$(gmd["YEAR"])_" *
+           "$(gmd["LAT_INDEX"])_$(gmd["LON_INDEX"])_$(settings["NX"])X.jld2"
 end;
-
-
 
 
 """
 
-    simulation_cache_file(config::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict}) ::String
+    simulation_cache_file(settings::Union{Dict,OrderedDict}, gmd::Union{Dict,OrderedDict}) ::String
 
 Return the location of the cache file for a specific grid cell, given
-- `config`: the configuration dictionary for Emerald Land simulations
+- `settings`: the configuration dictionary for Emerald Land simulations
 - `gmd`: a dictionary that contains the GriddingMachine information for the specific grid cell
 
 """
-function simulation_cache_file(config::OrderedDict{String,Any}, gmd::Union{Dict,OrderedDict}) ::String
+function simulation_cache_file(settings::Union{Dict,OrderedDict}, gmd::Union{Dict,OrderedDict}) ::String
     return "$(LAND_CACHE)/" *
-           "emerald_land_$(config["EMERALD_VERSION"])_" *
-           "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(gmd["YEAR"])_" *
-           "$(config["CONFIG_TAG"])_" *
-           "$(gmd["LAT_INDEX"])_$(gmd["LON_INDEX"])_$(config["NX"])X.nc"
+           "emerald_land_$(settings["EMERALD_VERSION"])_" *
+           "$(settings["GM_VERSION"])_$(settings["WD_VERSION"])_$(gmd["YEAR"])_" *
+           "$(settings["CONFIG_TAG"])_" *
+           "$(gmd["LAT_INDEX"])_$(gmd["LON_INDEX"])_$(settings["NX"])X.nc"
 end;
 
 
 """
 
-    simulation_global_file(year::Int, config::OrderedDict{String,Any}, mt::String) :: String
+    simulation_global_file(year::Int, settings::Union{Dict,OrderedDict}, mt::String) :: String
 
 Return the location of the global simulation output file for a specific year, given
 - `year`: the year of simulation
-- `config`: the configuration dictionary for Emerald Land simulations
+- `settings`: the configuration dictionary for Emerald Land simulations
 - `mt`: the resampling frequency (e.g., "1H", "1D", "8D", "1M", "1Y")
 
 """
-function simulation_global_file(year::Int, config::OrderedDict{String,Any}, mt::String) :: String
+function simulation_global_file(year::Int, settings::Union{Dict,OrderedDict}, mt::String) :: String
     @assert mt in ["1H", "1D", "8D", "1M", "1Y"] "Resample frequency must be one of 1H, 1D, 8D, 1M, or 1Y...";
 
     return "$(LAND_RESULT)/" *
-           "emerald_land_$(config["EMERALD_VERSION"])_" *
-           "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_" *
-           "$(config["CONFIG_TAG"])_" *
-           "$(config["NX"])X_$(mt).nc"
+           "emerald_land_$(settings["EMERALD_VERSION"])_" *
+           "$(settings["GM_VERSION"])_$(settings["WD_VERSION"])_$(year)_" *
+           "$(settings["CONFIG_TAG"])_" *
+           "$(settings["NX"])X_$(mt).nc"
 end;
 
 
 """
 
-    simulation_failure_log_file(year::Int, config::OrderedDict{String,Any}) :: String
+    simulation_failure_log_file(year::Int, settings::Union{Dict,OrderedDict}) :: String
 
 Return the location of the log file that records the failures during Emerald Land simulations, given
 - `year`: the year of simulation
-- `config`: the configuration dictionary for Emerald Land simulations
+- `settings`: the configuration dictionary for Emerald Land simulations
 
 """
-function simulation_failure_log_file(year::Int, config::OrderedDict{String,Any}) :: String
+function simulation_failure_log_file(year::Int, settings::Union{Dict,OrderedDict}) :: String
     return "$(LAND_RESULT)/" *
-           "emerald_land_$(config["EMERALD_VERSION"])_" *
-           "$(config["GM_VERSION"])_$(config["WD_VERSION"])_$(year)_" *
-           "$(config["CONFIG_TAG"])_" *
-           "$(config["NX"])X_failed.log"
+           "emerald_land_$(settings["EMERALD_VERSION"])_" *
+           "$(settings["GM_VERSION"])_$(settings["WD_VERSION"])_$(year)_" *
+           "$(settings["CONFIG_TAG"])_" *
+           "$(settings["NX"])X_failed.log"
 end;
