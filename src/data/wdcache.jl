@@ -16,7 +16,7 @@ function prepare_weather_drivers!(year::Int, settings::Union{Dict,OrderedDict}) 
 
     # if the global file already exists, do nothing
     if isfile(global_file)
-        pretty_display!("Global result file $global_file already exists. Skipping the weather preparation step...", "tinfo_end");
+        pretty_display!("Global result file already exists. Skipping the weather preparation step...", "tinfo_end");
 
         return nothing
     end;

@@ -4,7 +4,7 @@ using Dates: isleapyear
 using Distributed: pmap, @everywhere
 using GriddingMachine.Collector: download_dataset!
 using GriddingMachine.Indexer: LandDatasets, WeatherDriverLabels, grid_dict, grid_weather
-using NetcdfIO: append_nc!, create_nc!, detect_attribute, read_nc
+using NetcdfIO: append_nc!, create_nc!, detect_attribute, read_nc, save_nc!
 using OrderedCollections: OrderedDict
 using PkgUtility.DataIO: read_jld2, save_jld2!
 using PkgUtility.DistributedTools: dynamic_workers!

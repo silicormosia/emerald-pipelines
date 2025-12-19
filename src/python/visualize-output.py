@@ -10,7 +10,7 @@ lats = dset.variables["lat"][:]
 lons = dset.variables["lon"][:]
 
 # 2. plot the data
-print("Plotting the annual means from", filename)
+# print("Plotting the annual means from", filename)
 DF_VAR_NAMES = ["GPP", "ET", "SIF740"]
 fig = PLT.figure(dpi=300, figsize=(8.5,12))
 for i in range(1,4):

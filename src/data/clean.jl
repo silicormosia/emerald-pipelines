@@ -32,6 +32,7 @@ clean_cache!(year::Int, settings::Union{Dict,OrderedDict}) :: Nothing = (
     jld_dicts = read_jld2(jld2_to_read, "GRID_INFO");
 
     # combine all cache files into the global results
+    pretty_display!("Cleaning up all cache files from current simulation...", "tinfo_pre");
     @showprogress for gmd in jld_dicts
         cachefile = simulation_cache_file(settings, gmd);
         isfile(cachefile) && rm(cachefile; force=true);

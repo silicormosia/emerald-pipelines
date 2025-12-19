@@ -22,7 +22,7 @@ thread_simulation!(settings::Union{Dict,OrderedDict}, gmd::Union{Dict,OrderedDic
     return try
         sd = parameters_to_save(settings["VARIABLES_TO_SAVE"]);
         config = site_config(settings);
-        spac = site_spac(config, gmd);
+        spac = site_spac(config, gmd; lai_layer_strategy = settings["MAX_LAI_LAYERING"]);
         wd = Dict{String,Vector{settings["FT"]}}(read_jld2(jld2_driver_file(settings, gmd)));
         driver = site_driver_tuple(gmd, wd);
         results = site_result_tuple(spac, wd, sd);

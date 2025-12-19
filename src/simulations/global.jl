@@ -16,7 +16,7 @@ function global_simulations!(year::Int, settings::Union{Dict,OrderedDict}) :: No
 
     # if the global file already exists, do nothing
     if isfile(global_file)
-        pretty_display!("Global result file $global_file already exists. Skipping the simulation per thread...", "tinfo_end");
+        pretty_display!("Global result file already exists. Skipping the simulation per thread...", "tinfo_end");
 
         return nothing
     end;

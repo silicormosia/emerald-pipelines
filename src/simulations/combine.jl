@@ -16,7 +16,7 @@ function combine_cache_files!(year::Int, settings::Union{Dict,OrderedDict}) :: N
 
     # if the global file already exists, do nothing
     if isfile(global_file)
-        pretty_display!("Global result file $global_file already exists. Skipping combining the cache files...", "tinfo");
+        pretty_display!("Global result file already exists. Skipping combining the cache files...", "tinfo_end");
 
         return nothing
     end;
@@ -41,13 +41,13 @@ function combine_cache_files!(year::Int, settings::Union{Dict,OrderedDict}) :: N
     # determine the variable names to read and save
     pretty_display!("Preparing the empty arrays to store the combined results...", "tinfo_mid");
     vars_to_read = String[];
-    for var in settings["VARIABLES_TO_COMBINE"]
+    for var in settings["VARIABLES_TO_SAVE"]
         push!(vars_to_read, var);
     end;
 
     # create the empty maps to store the combined results
     map_dict = Dict{String,Any}();
-    for k in settings["VARIABLES_TO_COMBINE"]
+    for k in settings["VARIABLES_TO_SAVE"]
         map_dict[k] = deepcopy(map_template);
     end;
 
@@ -59,7 +59,7 @@ function combine_cache_files!(year::Int, settings::Union{Dict,OrderedDict}) :: N
         ilat = gmd["LAT_INDEX"];
         if isfile(cachefile)
             df = read_nc(cachefile, vars_to_read);
-            for k in settings["VARIABLES_TO_COMBINE"]
+            for k in settings["VARIABLES_TO_SAVE"]
                 map_dict[k][ilon,ilat,:] .= df[:,k];
             end;
         end;
@@ -72,7 +72,7 @@ function combine_cache_files!(year::Int, settings::Union{Dict,OrderedDict}) :: N
     lats = collect(Float32, 0.5/settings["NX"]:1/settings["NX"]:180) .- 90;
     append_nc!(global_file, "lon", lons, detect_attribute("lon"), ["lon"]);
     append_nc!(global_file, "lat", lats, detect_attribute("lat"), ["lat"]);
-    for k in settings["VARIABLES_TO_COMBINE"]
+    for k in settings["VARIABLES_TO_SAVE"]
         pretty_display!("Saving combined $(k) into global NetCDF file...", "tinfo_mid");
         append_nc!(global_file, k, map_dict[k], detect_attribute(k), ["lon", "lat", "ind"]);
     end;

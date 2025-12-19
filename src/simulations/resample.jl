@@ -48,20 +48,17 @@ resample_simulations!(year::Int, settings::Union{Dict,OrderedDict}, out_reso::St
     end;
 
     # otherwise, resampling the data and save it
-    append_nc!(file_out, "lon", read_nc(file_in, "lon"), detect_attribute("lon"), ["lon"]);
-    append_nc!(file_out, "lat", read_nc(file_in, "lat"), detect_attribute("lat"), ["lat"]);
-    dims = if out_reso == "1Y"
-        append_nc!(file_out, "ind", read_nc(file_in, "ind"), detect_attribute("ind"), ["ind"]);
-        ["lon", "lat", "ind"]
-    else
-        ["lon", "lat"]
-    end;
-    pretty_display!("Resampling $(length(settings["VARIABLES_TO_COMBINE"])) datasets for year $(year)...", "tinfo_mid");
-    for varname in settings["VARIABLES_TO_COMBINE"]
+    dims = out_reso == "1Y" ? ["lon", "lat"] : ["lon", "lat", "ind"];
+    pretty_display!("Resampling $(length(settings["VARIABLES_TO_SAVE"])) datasets for year $(year)...", "tinfo_mid");
+    for varname in settings["VARIABLES_TO_SAVE"]
         pretty_display!("Resampling the $(varname) data...", "tinfo_mid");
         resampled_data = resample(read_nc(file_in, varname), out_reso, year);
         pretty_display!("Saving resampled data...", "tinfo_mid");
-        append_nc!(file_out, varname, resampled_data, detect_attribute(varname), dims);
+        if isfile(file_out)
+            append_nc!(file_out, varname, resampled_data, detect_attribute(varname), dims);
+        else
+            save_nc!(file_out, varname, resampled_data, detect_attribute(varname));
+        end;
     end;
 
     return nothing
