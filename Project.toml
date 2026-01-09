@@ -16,6 +16,6 @@ ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
 [compat]
 Emerald = "0.5.0"
 GriddingMachine = "0.5.0"
-NetcdfIO = "0.2.11"
+NetcdfIO = "0.3.0"
 OrderedCollections = "1.8.1"
 PkgUtility = "0.3.0"

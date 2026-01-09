@@ -1,8 +1,8 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.12.1"
+julia_version = "1.12.4"
 manifest_format = "2.0"
-project_hash = "485d1f4aef856f45c1ac01ecaaa2418a5eaffc7d"
+project_hash = "56bb7459d7092660300f47ea1c91d87feaa0fd4f"
 
 [[deps.AliasTables]]
 deps = ["PtrArrays", "Random"]
@@ -190,9 +190,9 @@ version = "1.11.0"
 
 [[deps.Distributions]]
 deps = ["AliasTables", "FillArrays", "LinearAlgebra", "PDMats", "Printf", "QuadGK", "Random", "SpecialFunctions", "Statistics", "StatsAPI", "StatsBase", "StatsFuns"]
-git-tree-sha1 = "3bc002af51045ca3b47d2e1787d6ce02e68b943a"
+git-tree-sha1 = "fbcc7610f6d8348428f722ecbe0e6cfe22e672c6"
 uuid = "31c24e10-a181-5473-b8eb-7969acd0382f"
-version = "0.25.122"
+version = "0.25.123"
 
     [deps.Distributions.extensions]
     DistributionsChainRulesCoreExt = "ChainRulesCore"
@@ -218,11 +218,11 @@ version = "1.0.0"
 [[deps.Downloads]]
 deps = ["ArgTools", "FileWatching", "LibCURL", "NetworkOptions"]
 uuid = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
-version = "1.6.0"
+version = "1.7.0"
 
 [[deps.Emerald]]
 deps = ["DataFrames", "DocStringExtensions", "GriddingMachine", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter", "QuadGK", "Revise", "SpecialFunctions", "Statistics", "Test"]
-git-tree-sha1 = "95163a17f70debedec7149c0ef68eaa0233d69fe"
+git-tree-sha1 = "486eea164c304ce97000b1ac68ae4fd110662c58"
 repo-rev = "wyujie"
 repo-url = "https://github.com/Yujie-W/EmeraldDeveloping"
 uuid = "56ca4449-d59c-41e3-9ae8-0f89b45aadb6"
@@ -290,9 +290,9 @@ version = "1.11.0"
 
 [[deps.GLM]]
 deps = ["Distributions", "LinearAlgebra", "Printf", "Reexport", "SparseArrays", "SpecialFunctions", "Statistics", "StatsAPI", "StatsBase", "StatsFuns", "StatsModels"]
-git-tree-sha1 = "273bd1cd30768a2fddfa3fd63bbc746ed7249e5f"
+git-tree-sha1 = "c5432ee4f7817ec542fa7cda3d96745880903606"
 uuid = "38e38edf-8417-5370-95a0-9cbb8c7f171a"
-version = "1.9.0"
+version = "1.9.2"
 
 [[deps.GMP_jll]]
 deps = ["Artifacts", "Libdl"]
@@ -312,7 +312,7 @@ version = "1.4.0"
 
 [[deps.GriddingMachine]]
 deps = ["Dates", "Downloads", "Genie", "HTTP", "JSON", "NetcdfIO", "OrderedCollections", "PkgUtility", "Revise", "Test", "YAML"]
-git-tree-sha1 = "52caff6158f28afa6a3024c8d82ae023ce3f348d"
+git-tree-sha1 = "a94f0bb09fab0d8472d227e73955a7e2ff32364a"
 repo-rev = "wyujie"
 repo-url = "https://github.com/CliMA/GriddingMachine.jl.git"
 uuid = "f20cf718-bf4d-4727-bc8f-485b1f283ac6"
@@ -466,7 +466,7 @@ version = "0.6.4"
 [[deps.LibCURL_jll]]
 deps = ["Artifacts", "LibSSH2_jll", "Libdl", "OpenSSL_jll", "Zlib_jll", "nghttp2_jll"]
 uuid = "deac9b47-8bc7-5906-a0fe-35ac56dc84c0"
-version = "8.11.1+1"
+version = "8.15.0+0"
 
 [[deps.LibGit2]]
 deps = ["LibGit2_jll", "NetworkOptions", "Printf", "SHA"]
@@ -604,7 +604,7 @@ version = "1.11.0"
 
 [[deps.MozillaCACerts_jll]]
 uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
-version = "2025.5.20"
+version = "2025.11.4"
 
 [[deps.NetCDF_jll]]
 deps = ["Artifacts", "Blosc_jll", "Bzip2_jll", "HDF5_jll", "JLLWrappers", "LazyArtifacts", "LibCURL_jll", "Libdl", "MPICH_jll", "MPIPreferences", "MPItrampoline_jll", "MicrosoftMPI_jll", "OpenMPI_jll", "TOML", "XML2_jll", "Zlib_jll", "Zstd_jll", "libaec_jll", "libzip_jll"]
@@ -614,11 +614,11 @@ version = "401.900.300+0"
 
 [[deps.NetcdfIO]]
 deps = ["CommonDataModel", "DataFrames", "DiskArrays", "DocStringExtensions", "NetCDF_jll", "OrderedCollections", "Test"]
-git-tree-sha1 = "244be761ca6c1530c3aae1013b9335aad0206b3c"
+git-tree-sha1 = "0a876b43a8e35c8471bdcacc320e9697422722fd"
 repo-rev = "wyujie"
 repo-url = "https://github.com/Yujie-W/NetcdfIO.jl.git"
 uuid = "6a36f34d-89cf-423a-87c4-84549e82f670"
-version = "0.2.12"
+version = "0.3.0"
 
 [[deps.Nettle]]
 deps = ["Libdl", "Nettle_jll"]
@@ -677,7 +677,7 @@ version = "1.6.1"
 [[deps.OpenSSL_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "458c3c95-2e84-50aa-8efc-19380b2a3a95"
-version = "3.5.1+0"
+version = "3.5.4+0"
 
 [[deps.OpenSpecFun_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl"]
@@ -692,9 +692,9 @@ version = "1.8.1"
 
 [[deps.PDMats]]
 deps = ["LinearAlgebra", "SparseArrays", "SuiteSparse"]
-git-tree-sha1 = "d922b4d80d1e12c658da7785e754f4796cc1d60d"
+git-tree-sha1 = "e4cff168707d441cd6bf3ff7e4832bdf34278e4a"
 uuid = "90014a1f-27ba-587c-ab20-58faa44d9150"
-version = "0.11.36"
+version = "0.11.37"
 weakdeps = ["StatsBase"]
 
     [deps.PDMats.extensions]
@@ -709,7 +709,7 @@ version = "2.8.3"
 [[deps.Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "Random", "SHA", "TOML", "Tar", "UUIDs", "p7zip_jll"]
 uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
-version = "1.12.0"
+version = "1.12.1"
 weakdeps = ["REPL"]
 
     [deps.Pkg.extensions]
@@ -735,9 +735,9 @@ version = "1.3.3"
 
 [[deps.Preferences]]
 deps = ["TOML"]
-git-tree-sha1 = "0f27480397253da18fe2c12a4ba4eb9eb208bf3d"
+git-tree-sha1 = "522f093a29b31a93e34eaea17ba055d850edea28"
 uuid = "21216c6a-2e73-6563-6e65-726566657250"
-version = "1.5.0"
+version = "1.5.1"
 
 [[deps.PrettyTables]]
 deps = ["Crayons", "LaTeXStrings", "Markdown", "PrecompileTools", "Printf", "REPL", "Reexport", "StringManipulation", "Tables"]
@@ -795,10 +795,10 @@ uuid = "ae029012-a4dd-5104-9daa-d747884805df"
 version = "1.3.1"
 
 [[deps.Revise]]
-deps = ["CodeTracking", "FileWatching", "JuliaInterpreter", "LibGit2", "LoweredCodeUtils", "OrderedCollections", "REPL", "Requires", "UUIDs", "Unicode"]
-git-tree-sha1 = "ff0bd131abc4ebd9b66d2033144bed6d011d5074"
+deps = ["CodeTracking", "FileWatching", "InteractiveUtils", "JuliaInterpreter", "LibGit2", "LoweredCodeUtils", "OrderedCollections", "Preferences", "REPL", "UUIDs"]
+git-tree-sha1 = "dfd6fab9aa325b382773b8930998ce84c2918e5e"
 uuid = "295af30f-e4ad-537b-8983-00126c2a3abe"
-version = "3.12.3"
+version = "3.13.1"
 weakdeps = ["Distributed"]
 
     [deps.Revise.extensions]
@@ -828,9 +828,9 @@ version = "1.5.0"
 
 [[deps.SentinelArrays]]
 deps = ["Dates", "Random"]
-git-tree-sha1 = "712fb0231ee6f9120e005ccd56297abbc053e7e0"
+git-tree-sha1 = "ebe7e59b37c400f694f52b58c93d26201387da70"
 uuid = "91c51154-3ec4-41a3-a24f-3f23e20d615c"
-version = "1.4.8"
+version = "1.4.9"
 
 [[deps.Serialization]]
 uuid = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
@@ -929,9 +929,9 @@ version = "0.4.2"
 
 [[deps.StructUtils]]
 deps = ["Dates", "UUIDs"]
-git-tree-sha1 = "79529b493a44927dd5b13dde1c7ce957c2d049e4"
+git-tree-sha1 = "b0290a55d9e047841d7f5c472edbdc39c72cd0ce"
 uuid = "ec057cc2-7a8d-4b58-b3b3-92acb9f63b42"
-version = "2.6.0"
+version = "2.6.1"
 
     [deps.StructUtils.extensions]
     StructUtilsMeasurementsExt = ["Measurements"]
@@ -1035,9 +1035,9 @@ version = "2.13.9+0"
 
 [[deps.XZ_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
-git-tree-sha1 = "fee71455b0aaa3440dfdd54a9a36ccef829be7d4"
+git-tree-sha1 = "9cce64c0fdd1960b597ba7ecda2950b5ed957438"
 uuid = "ffd25f8a-64ca-5728-b0f7-c24cf3aae800"
-version = "5.8.1+0"
+version = "5.8.2+0"
 
 [[deps.Xorg_libpciaccess_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Zlib_jll"]
@@ -1085,6 +1085,6 @@ uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
 version = "1.64.0+1"
 
 [[deps.p7zip_jll]]
-deps = ["Artifacts", "Libdl"]
+deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
 uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
-version = "17.5.0+2"
+version = "17.7.0+0"

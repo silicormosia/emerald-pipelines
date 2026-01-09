@@ -29,6 +29,14 @@ function global_simulations!(year::Int, settings::Union{Dict,OrderedDict}) :: No
     # run the simulations only for the sites where output files do not exist, skip if all files exist
     new_dicts = [];
     for gmd in jld_dicts
+        # parse the values based on SCALERS in settings
+        if haskey(settings, "SCALERS")
+            if haskey(settings["SCALERS"], "CHL")
+                gmd["CHLOROPHYLL"] .*= settings["SCALERS"]["CHL"];
+            end;
+        end;
+
+        # add to new dicts if the simulation file does not exist
         fpath = simulation_cache_file(settings, gmd);
         if !isfile(fpath)
             push!(new_dicts, gmd);
