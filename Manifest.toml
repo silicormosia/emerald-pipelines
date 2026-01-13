@@ -222,7 +222,7 @@ version = "1.7.0"
 
 [[deps.Emerald]]
 deps = ["DataFrames", "DocStringExtensions", "GriddingMachine", "LazyArtifacts", "LinearAlgebra", "NetcdfIO", "OrderedCollections", "PkgUtility", "ProgressMeter", "QuadGK", "Revise", "SpecialFunctions", "Statistics", "Test"]
-git-tree-sha1 = "486eea164c304ce97000b1ac68ae4fd110662c58"
+git-tree-sha1 = "ff3cc1727b386eedca9407721e097cb1958806a8"
 repo-rev = "wyujie"
 repo-url = "https://github.com/Yujie-W/EmeraldDeveloping"
 uuid = "56ca4449-d59c-41e3-9ae8-0f89b45aadb6"
@@ -890,10 +890,10 @@ uuid = "82ae8749-77ed-4fe6-ae5f-f523153014b0"
 version = "1.8.0"
 
 [[deps.StatsBase]]
-deps = ["AliasTables", "DataAPI", "DataStructures", "LinearAlgebra", "LogExpFunctions", "Missings", "Printf", "Random", "SortingAlgorithms", "SparseArrays", "Statistics", "StatsAPI"]
-git-tree-sha1 = "be5733d4a2b03341bdcab91cea6caa7e31ced14b"
+deps = ["AliasTables", "DataAPI", "DataStructures", "IrrationalConstants", "LinearAlgebra", "LogExpFunctions", "Missings", "Printf", "Random", "SortingAlgorithms", "SparseArrays", "Statistics", "StatsAPI"]
+git-tree-sha1 = "aceda6f4e598d331548e04cc6b2124a6148138e3"
 uuid = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
-version = "0.34.9"
+version = "0.34.10"
 
 [[deps.StatsFuns]]
 deps = ["HypergeometricFunctions", "IrrationalConstants", "LogExpFunctions", "Reexport", "Rmath", "SpecialFunctions"]
