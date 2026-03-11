@@ -49,18 +49,25 @@ include("python/visualize-output.jl");
 Run the full Emerald Land simulation pipelines, given
 - `year`: the year of simulation
 - `settings`: the configuration dictionary for Emerald Land simulations
+- `data_only`: if true, only prepare the data but skip the simulations and visualizations
 
 """
-function run_emerald_land!(year::Int, settings::Union{Dict,OrderedDict} = land_model_settings()) :: Nothing
+function run_emerald_land!(year::Int, settings::Union{Dict,OrderedDict} = land_model_settings(); data_only::Bool = false) :: Nothing
     # 1. prepare the grid JLD2 file to determine where to run simulations
     # 2. prepare the weather drivers for all grid cells within the JLD2 file
+    #    prepare the data on the server with internet connection, but skip the simulations and visualizations
     # 3. run the global simulations in parallel
     # 4. combine all simulation results into a single NetCDF file
     # 5. resample the global simulation results into different temporal resolutions
     # 6. plot an example figure to verify the simulations
     # 7. clean up all cache files to save disk space
+
+    # update_database!();
     prepare_grid_jld!(year, settings);
     prepare_weather_drivers!(year, settings);
+    if data_only
+        return nothing
+    end;
     global_simulations!(year, settings);
     combine_cache_files!(year, settings);
     resample_simulations!(year, settings);

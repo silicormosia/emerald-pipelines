@@ -15,11 +15,12 @@ DF_VAR_NAMES = ["GPP", "ET", "SIF740"]
 fig = PLT.figure(dpi=300, figsize=(8.5,12))
 for i in range(1,4):
     ax = fig.add_subplot(3,1,i)
-    data = dset.variables[DF_VAR_NAMES[i-1]][:]
-    cmap = ax.pcolormesh(lons, lats, data, shading="auto")
     ax.set_aspect("equal")
-    fig.colorbar(cmap, ax=ax, fraction=0.025)
     ax.set_title("mean " + DF_VAR_NAMES[i-1], loc="left")
+    if DF_VAR_NAMES[i-1] in dset.variables.keys():
+        data = dset.variables[DF_VAR_NAMES[i-1]][:]
+        cmap = ax.pcolormesh(lons, lats, data, shading="auto")
+        fig.colorbar(cmap, ax=ax, fraction=0.025)
 
 # save the figure
 fig.set_tight_layout(True)
